@@ -1,0 +1,61 @@
+
+<passconfig samples="stdlib/samples/test"
+            moduleName="kotlin-stdlib"
+            skipDeprecated="false"
+            jdkversion="8"
+            analysisPlatform="jvm"
+            include="stdlib/src/Module.md"
+            noStdlibLink="true"
+            classpathref="stdlib.compile.classpath"
+            languageVersion="1.2">
+
+  <sourceroot path="stdlib/jvm/src"/>
+  <sourceroot path="stdlib/jdk7/src"/>
+  <sourceroot path="stdlib/jdk8/src"/>
+
+  <sourceroot path="../core/builtins/native"/>
+  <sourceroot path="../core/builtins/src"/>
+
+  <sourceroot path="../core/reflection.jvm/src"/><!-- platforms="JVM"/>-->
+  <sourceroot path="stdlib/jvm/runtime/kotlin/jvm/annotations"/><!-- platforms="JVM"/>-->
+  <sourceroot path="stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/><!-- platforms="JVM"/>-->
+  <sourceroot path="stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/><!-- platforms="JVM"/>-->
+  <sourceroot path="stdlib/jvm/runtime/kotlin/TypeAliases.kt"/><!-- platforms="JVM"/>-->
+  <sourceroot path="stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/><!-- platforms="JVM"/>-->
+
+  <!--JS-->
+  <!--<sourceroot path="stdlib/js/src" platforms="JS"/>-->
+  <sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>
+
+  <!-- TODO Docs? -->
+  <!--<packageoptions prefix="org.w3c" reportUndocumented="false"/>-->
+  <!--<packageoptions prefix="org.khronos" reportUndocumented="false"/>-->
+  <!--<packageoptions prefix="jquery" suppress="true"/>-->
+  <!--<packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>-->
+  <target value="jvm"/>
+</passconfig>
+
+<passconfig samples="stdlib/samples/test"
+            moduleName="kotlin-stdlib"
+            skipDeprecated="false"
+            jdkversion="8"
+            analysisPlatform="js"
+            include="stdlib/src/Module.md"
+            noStdlibLink="true"
+            classpathref="stdlib.compile.classpath"
+            languageVersion="1.2"
+            classpath="<%js classpath%>">
+
+<sourceroot path="../core/builtins/native"/>
+<sourceroot path="../core/builtins/src"/>
+
+<sourceroot path="stdlib/js/src"/>
+<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>
+
+<!-- TODO Docs? -->
+<packageoptions prefix="org.w3c" reportUndocumented="false"/>
+<packageoptions prefix="org.khronos" reportUndocumented="false"/>
+<packageoptions prefix="jquery" suppress="true"/>
+<packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
+<target value="js"/>
+</passconfig>

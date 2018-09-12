@@ -50,27 +50,45 @@ final List<String> modules = [
         "kotlin-test",
 ]
 
+
 task extractSources() { }
+task extractLibs() { }
+
+task extractAll(dependsOn: [extractSources, extractLibs])
 
 modules.forEach { module ->
   final String src = "kotlin_src_$module"
-  final String jvm = "kotlin_jvm_$module"
+  final String lib = "kotlin_lib_$module"
 
   final Configuration conf_src = configurations.create(src)
-  configurations.create(jvm)
-  
+  final Configuration  lib_src = configurations.create(lib)
+
   dependencies {
     "$src"(group: 'org.jetbrains.kotlin', name: module, version: kotlin_big_version, classifier: 'sources') { transitive = false }
-    "$jvm"(group: 'org.jetbrains.kotlin', name: module, version: kotlin_big_version)
+    "$lib"(group: 'org.jetbrains.kotlin', name: module, version: kotlin_big_version)
   }
-  
-  final Task task = tasks.create("extract_$module", Sync) {
+
+  final Task sourcesTask = tasks.create("extract_source_$module", Sync) {
     dependsOn conf_src
-    
+
     from { conf_src.collect { zipTree(it) } }
     into "$buildDir/sources/$module"
   }
-  
-  extractSources.dependsOn task
+
+  final Task libsTask = tasks.create("extract_lib_$module", Sync) {
+    dependsOn lib_src
+
+    from { lib_src }
+    into "$buildDir/libs/$module"
+  }
+
+  extractSources.dependsOn sourcesTask
+  extractLibs.dependsOn libsTask
+}
+
+task callDokka(dependsOn: extractAll) {
+  doLast {
+    ant.ant(antfile: file('build-docs.xml'), target: "v2")
+  }
 }
 
