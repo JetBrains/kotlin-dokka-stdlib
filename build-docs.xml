@@ -1,4 +1,4 @@
-<project name="Kotlin standard library" default="document" basedir=".">
+<project name="Kotlin standard library" default="v2" basedir=".">
 
     <property name="base" location="${basedir}"/>
     <property name="build" location="${base}/build"/>
@@ -21,7 +21,6 @@
         <fileset dir="${basedir}/stdlib/jvm/build/libs/" includes="dist-kotlin-stdlib.jar"/>
     </path>
 
-
     <path id="kotlin-test.compile.classpath">
         <fileset dir="${basedir}/stdlib/jvm/build/libs/" includes="dist-kotlin-stdlib.jar"/>
         <pathelement location="${basedir}/lib/junit-4.11.jar"/>
@@ -35,10 +34,13 @@
             <passconfig samples="stdlib/samples/test"
                         moduleName="kotlin-stdlib"
                         skipDeprecated="false"
-                        jdkversion="8" analysisplatform="common"
-                        include="stdlib/src/Module.md" noStdlibLink="true"
+                        jdkversion="8"
+                        analysisplatform="common"
+                        include="stdlib/src/Module.md"
+                        noStdlibLink="true"
                         classpath="<%common classpath%>"
-                        classpathref="stdlib.compile.classpath" languageVersion="1.2">
+                        classpathref="stdlib.compile.classpath"
+                        languageVersion="1.2">
 
 
                 <sourceroot path="stdlib/common/src" />
@@ -94,10 +96,15 @@
                 <target value="jvm"/>
             </passconfig>
 
-            <passconfig samples="stdlib/samples/test" moduleName="kotlin-stdlib" skipDeprecated="false"
-                        jdkversion="8" analysisPlatform="js"
-                        include="stdlib/src/Module.md" noStdlibLink="true"
-                        classpathref="stdlib.compile.classpath" languageVersion="1.2"
+            <passconfig samples="stdlib/samples/test"
+                        moduleName="kotlin-stdlib"
+                        skipDeprecated="false"
+                        jdkversion="8"
+                        analysisPlatform="js"
+                        include="stdlib/src/Module.md"
+                        noStdlibLink="true"
+                        classpathref="stdlib.compile.classpath"
+                        languageVersion="1.2"
                         classpath="<%js classpath%>">
 
                 <sourceroot path="../core/builtins/native"/>
@@ -113,7 +120,6 @@
                 <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
                 <target value="js"/>
             </passconfig>
-
 
             <impliedplatform value="jvm"/>
             <impliedplatform value="common"/>
