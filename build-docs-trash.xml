@@ -1,31 +1,36 @@
 
-<passconfig samples="stdlib/samples/test"
-            moduleName="kotlin-stdlib"
+<passconfig samples="${stdlib-samples}"
+            moduleName="kotlin-stdlib-jvm"
             skipDeprecated="false"
             jdkversion="8"
             analysisPlatform="jvm"
-            include="stdlib/src/Module.md"
+            include="${stdlib-include-md}"
             noStdlibLink="true"
-            classpathref="stdlib.compile.classpath"
-            languageVersion="1.2">
+            classpathref="stdlib-jvm.classpath"
+            languageVersion="${language.version}">
 
-  <sourceroot path="stdlib/jvm/src"/>
-  <sourceroot path="stdlib/jdk7/src"/>
-  <sourceroot path="stdlib/jdk8/src"/>
 
-  <sourceroot path="../core/builtins/native"/>
-  <sourceroot path="../core/builtins/src"/>
+  <sourceroot path="${sources}/kotlin-stdlib-jdk8"/>
+  <sourceroot path="${sources}/kotlin-stdlib-jdk7"/>
+  <sourceroot path="${sources}/kotlin-stdlib"/>
 
-  <sourceroot path="../core/reflection.jvm/src"/><!-- platforms="JVM"/>-->
-  <sourceroot path="stdlib/jvm/runtime/kotlin/jvm/annotations"/><!-- platforms="JVM"/>-->
-  <sourceroot path="stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/><!-- platforms="JVM"/>-->
-  <sourceroot path="stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/><!-- platforms="JVM"/>-->
-  <sourceroot path="stdlib/jvm/runtime/kotlin/TypeAliases.kt"/><!-- platforms="JVM"/>-->
-  <sourceroot path="stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/><!-- platforms="JVM"/>-->
+  <!--<sourceroot path="stdlib/jvm/src"/>-->
+  <!--<sourceroot path="stdlib/jdk7/src"/>-->
+  <!--<sourceroot path="stdlib/jdk8/src"/>-->
 
-  <!--JS-->
-  <!--<sourceroot path="stdlib/js/src" platforms="JS"/>-->
-  <sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>
+  <!--<sourceroot path="../core/builtins/native"/>-->
+  <!--<sourceroot path="../core/builtins/src"/>-->
+
+  <!--<sourceroot path="../core/reflection.jvm/src"/>&lt;!&ndash; platforms="JVM"/>&ndash;&gt;-->
+  <!--<sourceroot path="stdlib/jvm/runtime/kotlin/jvm/annotations"/>&lt;!&ndash; platforms="JVM"/>&ndash;&gt;-->
+  <!--<sourceroot path="stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>&lt;!&ndash; platforms="JVM"/>&ndash;&gt;-->
+  <!--<sourceroot path="stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>&lt;!&ndash; platforms="JVM"/>&ndash;&gt;-->
+  <!--<sourceroot path="stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>&lt;!&ndash; platforms="JVM"/>&ndash;&gt;-->
+  <!--<sourceroot path="stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>&lt;!&ndash; platforms="JVM"/>&ndash;&gt;-->
+
+  <!--&lt;!&ndash;JS&ndash;&gt;-->
+  <!--&lt;!&ndash;<sourceroot path="stdlib/js/src" platforms="JS"/>&ndash;&gt;-->
+  <!--<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>-->
 
   <!-- TODO Docs? -->
   <!--<packageoptions prefix="org.w3c" reportUndocumented="false"/>-->
@@ -35,27 +40,31 @@
   <target value="jvm"/>
 </passconfig>
 
-<passconfig samples="stdlib/samples/test"
-            moduleName="kotlin-stdlib"
+
+
+
+<passconfig samples="${stdlib-samples}"
+            moduleName="kotlin-stdlib-js"
             skipDeprecated="false"
             jdkversion="8"
             analysisPlatform="js"
-            include="stdlib/src/Module.md"
+            include="${stdlib-include-md}"
             noStdlibLink="true"
-            classpathref="stdlib.compile.classpath"
-            languageVersion="1.2"
-            classpath="<%js classpath%>">
+            classpathref="stdlib-js.classpath"
+            languageVersion="${language.version}">
 
-<sourceroot path="../core/builtins/native"/>
-<sourceroot path="../core/builtins/src"/>
+<sourceroot path="${sources}/kotlin-stdlib-js"/>
 
-<sourceroot path="stdlib/js/src"/>
-<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>
+<!--<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>-->
 
 <!-- TODO Docs? -->
 <packageoptions prefix="org.w3c" reportUndocumented="false"/>
 <packageoptions prefix="org.khronos" reportUndocumented="false"/>
 <packageoptions prefix="jquery" suppress="true"/>
 <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
+
 <target value="js"/>
 </passconfig>
+
+
+

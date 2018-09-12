@@ -1,4 +1,4 @@
-<project name="Kotlin standard library" default="v2" basedir=".">
+<project name="Kotlin standard library" default="v2" basedir="." xmlns:x="http://www.w3.org/2001/XInclude">
 
     <property name="base" location="${basedir}"/>
     <property name="build" location="${base}/build"/>
@@ -25,24 +25,36 @@
         <fileset dir="${libs}/kotlin-stdlib-common" includes="*.jar"/>
     </path>
 
+    <path id="stdlib-jvm.classpath">
+        <fileset dir="${libs}/kotlin-stdlib-jdk8" includes="*.jar"/>
+    </path>
+
+    <path id="stdlib-js.classpath">
+        <fileset dir="${libs}/kotlin-stdlib-js" includes="*.jar"/>
+    </path>
+
     <path id="kotlin-test.compile.classpath">
         <fileset dir="${basedir}/stdlib/jvm/build/libs/" includes="dist-kotlin-stdlib.jar"/>
         <pathelement location="${basedir}/lib/junit-4.11.jar"/>
     </path>
+
+    <property name="stdlib-samples" location="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/samples/test" />
+
+    <!-- TODO: one file for all modules? -->
+    <property name="stdlib-include-md" location="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/src/Module.md" />
 
     <target name="v2">
         <dokka outputDir="${docs.output}/jre8"
                format="${dokka.format}"
                generateindexpages="true">
 
-            <!--samples="stdlib/samples/test"-->
             <passconfig
-                        samples="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/samples/test"
-                        moduleName="kotlin-stdlib"
+                        samples="${stdlib-samples}"
+                        moduleName="kotlin-stdlib-common"
                         skipDeprecated="false"
                         jdkversion="8"
                         analysisplatform="common"
-                        include="stdlib/src/Module.md"
+                        include="${stdlib-include-md}"
                         noStdlibLink="true"
                         classpathref="stdlib-common.classpath"
                         languageVersion="${language.version}">
@@ -60,10 +72,12 @@
                 <target value="common"/>
             </passconfig>
 
+
             <impliedplatform value="jvm"/>
             <impliedplatform value="common"/>
             <impliedplatform value="js"/>
         </dokka>
+
 
     </target>
 </project>
