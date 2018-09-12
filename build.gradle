@@ -1,3 +1,7 @@
+plugins {
+  id "de.undercouch.download" version "3.4.3"
+}
+
 
 configurations {
   dokka
@@ -86,9 +90,45 @@ modules.forEach { module ->
   extractLibs.dependsOn libsTask
 }
 
-task callDokka(dependsOn: extractAll) {
-  doLast {
-    ant.ant(antfile: file('build-docs.xml'), target: "v2")
-  }
+
+final String ext
+if (System.getProperty('os.name', '').toLowerCase().contains('windows')) {
+  ext = ".cmd"
+} else {
+  ext = ""
+}
+
+
+final String antVersion = "1.10.5"
+final String antURL = "https://www.apache.org/dist/ant/binaries/apache-ant-$antVersion-bin.zip"
+final File antHome = new File(buildDir, "ant-home")
+final File antZip = new File(buildDir, "apache-ant-$antVersion-bin.zip")
+final File antExe = new File(antHome, "apache-ant-$antVersion/bin/ant$ext") 
+
+task downloadAnt(type: Download) {
+  src antURL
+  dest buildDir
+  onlyIfModified true
+}
+
+task extractAnt(type: Sync, dependsOn: downloadAnt) {
+  from zipTree(antZip)
+  into antHome
+}
+
+extractAll.dependsOn extractAnt
+
+
+
+task callDokka(type: Exec, dependsOn: extractAll) {
+  workingDir = projectDir
+  environment("ANT_OPTS", "-Xmx3G -ea")
+  environment("JAVA_HOME", "-Xmx3G -ea")
+  commandLine antExe.path, "-f", file("build-docs.xml").path, "v2"
+  
+
+//  doLast {
+//    ant.ant(antfile: file('build-docs.xml'), target: "v2")
+//  }
 }
 
