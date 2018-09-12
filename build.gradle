@@ -123,12 +123,7 @@ extractAll.dependsOn extractAnt
 task callDokka(type: Exec, dependsOn: extractAll) {
   workingDir = projectDir
   environment("ANT_OPTS", "-Xmx3G -ea")
-  environment("JAVA_HOME", "-Xmx3G -ea")
+  environment("JAVA_HOME", System.getProperty("java.home"))
   commandLine antExe.path, "-f", file("build-docs.xml").path, "v2"
-  
-
-//  doLast {
-//    ant.ant(antfile: file('build-docs.xml'), target: "v2")
-//  }
 }
 
