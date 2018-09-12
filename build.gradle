@@ -8,9 +8,10 @@ configurations {
 }
 
 final String dokka_build = "611"
-final String dokka_version = "0.9.18.$dokka_build"
+final String dokka_version = "0.9.18-SNAPSHOT"
 
 repositories {
+  mavenLocal()
   maven { url = "https://teamcity.jetbrains.com/guestAuth/repository/download/Kotlin_Dokka_DokkaAntMavenGradle/$dokka_build/maven"  }
 }
 
@@ -58,7 +59,7 @@ final List<String> modules = [
 task extractSources() { }
 task extractLibs() { }
 
-task extractAll(dependsOn: [extractSources, extractLibs])
+task extractAll(dependsOn: [setupDokka, extractSources, extractLibs])
 
 modules.forEach { module ->
   final String src = "kotlin_src_$module"
