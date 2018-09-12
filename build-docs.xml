@@ -37,6 +37,7 @@
 
             <!--samples="stdlib/samples/test"-->
             <passconfig
+                        samples="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/samples/test"
                         moduleName="kotlin-stdlib"
                         skipDeprecated="false"
                         jdkversion="8"
@@ -46,6 +47,8 @@
                         classpathref="stdlib-common.classpath"
                         languageVersion="${language.version}">
 
+                <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native" />
+                <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src" />
                 <sourceroot path="${sources}/kotlin-stdlib-common" />
 
                 <!--<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>-->
