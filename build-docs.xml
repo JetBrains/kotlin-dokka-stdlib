@@ -71,6 +71,10 @@
         <sourceroot path="${sources}/kotlin-stdlib-common"/>
 
         <target value="common"/>
+        <target value="js"/>
+        <target value="jre6"/>
+        <target value="jre7"/>
+        <target value="jre8"/>
       </passconfig>
 
 
