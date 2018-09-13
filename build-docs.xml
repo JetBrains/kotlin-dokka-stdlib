@@ -8,7 +8,7 @@
   <!-- Generates the standard library documentation using Dokka. -->
   <property name="github.revision" value="master"/>
 
-  <property name="docs.output" value="${build}/doc"/>
+  <property name="docs.output" location="${build}/doc"/>
   <property name="dokka.format" value="kotlin-website-html"/>
 
   <property name="kotlin_root" location="IT_IS_SET_FROM_GRADLE"/>
@@ -224,6 +224,6 @@
       <impliedplatform value="js"/>
     </dokka>
 
-
+    <echo message=" ##teamcity[publishArtifacts '${docs.output}/**/* => docs.zip'] " />
   </target>
 </project>
