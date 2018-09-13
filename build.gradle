@@ -102,12 +102,7 @@ final String kotlinUrl = "https://github.com/JetBrains/kotlin/archive/build-${ko
 task downloadKotlinSources(type: Download) {
   src kotlinUrl
   dest kotlinSourcesZip
-  onlyIfModified true
-  
-  //GitHub seems to update internal attributes, forcing slow reload
-  //assuming tag is used (it must not change)
-  inputs.property("url", kotlinUrl)
-  outputs.file(kotlinSourcesZip)
+  overwrite false
 }
 
 task extractKotlinSources(type: Sync, dependsOn: downloadKotlinSources) {
@@ -135,7 +130,7 @@ final File antExe = new File(antHome, "apache-ant-$antVersion/bin/ant$ext")
 task downloadAnt(type: Download) {
   src antURL
   dest buildDir
-  onlyIfModified true
+  overwrite false
 }
 
 task extractAnt(type: Sync, dependsOn: downloadAnt) {
