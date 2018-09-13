@@ -1,83 +1,113 @@
-<project name="Kotlin standard library" default="v2" basedir="." xmlns:x="http://www.w3.org/2001/XInclude">
+<project name="Kotlin standard library" default="v2" basedir=".">
 
-    <property name="base" location="${basedir}"/>
-    <property name="build" location="${base}/build"/>
-    <property name="sources" location="${base}/build/sources"/>
-    <property name="libs" location="${base}/build/libs"/>
+  <property name="base" location="${basedir}"/>
+  <property name="build" location="${base}/build"/>
+  <property name="sources" location="${base}/build/sources"/>
+  <property name="libs" location="${base}/build/libs"/>
 
-    <!-- Generates the standard library documentation using Dokka. -->
-    <property name="github.revision" value="master"/>
+  <!-- Generates the standard library documentation using Dokka. -->
+  <property name="github.revision" value="master"/>
 
-    <property name="docs.output" value="${build}/doc" />
-    <property name="dokka.format" value="kotlin-website-html"/>
+  <property name="docs.output" value="${build}/doc"/>
+  <property name="dokka.format" value="kotlin-website-html"/>
 
-    <property name="language.version" value="1.2" />
+  <property name="language.version" value="1.2"/>
 
-    <typedef resource="dokka-antlib.xml">
-        <classpath>
-            <fileset dir="${base}/build/dokka-home" erroronmissingdir="true">
-                <include name="*.jar"/>
-            </fileset>
-        </classpath>
-    </typedef>
+  <typedef resource="dokka-antlib.xml">
+    <classpath>
+      <fileset dir="${base}/build/dokka-home" erroronmissingdir="true">
+        <include name="*.jar"/>
+      </fileset>
+    </classpath>
+  </typedef>
 
-    <path id="stdlib-common.classpath">
-        <fileset dir="${libs}/kotlin-stdlib-common" includes="*.jar"/>
-    </path>
+  <path id="stdlib-common.classpath">
+    <fileset dir="${libs}/kotlin-stdlib-common" includes="*.jar"/>
+  </path>
 
-    <path id="stdlib-jvm.classpath">
-        <fileset dir="${libs}/kotlin-stdlib-jdk8" includes="*.jar"/>
-    </path>
+  <path id="stdlib-jvm.classpath">
+    <fileset dir="${libs}/kotlin-stdlib-jdk8" includes="*.jar"/>
+  </path>
 
-    <path id="stdlib-js.classpath">
-        <fileset dir="${libs}/kotlin-stdlib-js" includes="*.jar"/>
-    </path>
+  <path id="stdlib-js.classpath">
+    <fileset dir="${libs}/kotlin-stdlib-js" includes="*.jar"/>
+  </path>
 
-    <path id="kotlin-test.compile.classpath">
-        <fileset dir="${basedir}/stdlib/jvm/build/libs/" includes="dist-kotlin-stdlib.jar"/>
-        <pathelement location="${basedir}/lib/junit-4.11.jar"/>
-    </path>
+  <path id="kotlin-test.compile.classpath">
+    <fileset dir="${basedir}/stdlib/jvm/build/libs/" includes="dist-kotlin-stdlib.jar"/>
+    <pathelement location="${basedir}/lib/junit-4.11.jar"/>
+  </path>
 
-    <property name="stdlib-samples" location="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/samples/test" />
+  <property name="stdlib-samples" location="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/samples/test"/>
 
-    <!-- TODO: one file for all modules? -->
-    <property name="stdlib-include-md" location="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/src/Module.md" />
+  <!-- TODO: one file for all modules? -->
+  <property name="stdlib-include-md" location="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/src/Module.md"/>
 
-    <target name="v2">
-        <dokka outputDir="${docs.output}/jre8"
-               format="${dokka.format}"
-               generateindexpages="true">
+  <target name="v2">
+    <delete dir="${docs.output}" failonerror="false"/>
 
-            <passconfig
-                        samples="${stdlib-samples}"
-                        moduleName="kotlin-stdlib-common"
-                        skipDeprecated="false"
-                        jdkversion="8"
-                        analysisplatform="common"
-                        include="${stdlib-include-md}"
-                        noStdlibLink="true"
-                        classpathref="stdlib-common.classpath"
-                        languageVersion="${language.version}">
+    <dokka outputDir="${docs.output}"
+           format="${dokka.format}"
+           generateindexpages="true">
 
-                <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native" />
-                <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src" />
-                <sourceroot path="${sources}/kotlin-stdlib-common" />
+      <passconfig
+              samples="${stdlib-samples}"
+              moduleName="kotlin-stdlib"
+              skipDeprecated="false"
+              jdkversion="8"
+              analysisplatform="common"
+              include="${stdlib-include-md}"
+              noStdlibLink="true"
+              classpathref="stdlib-common.classpath"
+              languageVersion="${language.version}">
 
-                <!--<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>-->
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src"/>
+        <sourceroot path="${sources}/kotlin-stdlib-common"/>
 
-                <!--<packageoptions prefix="org.w3c" reportUndocumented="false"/>-->
-                <!--<packageoptions prefix="org.khronos" reportUndocumented="false"/>-->
-                <!--<packageoptions prefix="jquery" suppress="true"/>-->
-                <!--<packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>-->
-                <target value="common"/>
-            </passconfig>
+        <!--<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>-->
 
-
-            <impliedplatform value="jvm"/>
-            <impliedplatform value="common"/>
-            <impliedplatform value="js"/>
-        </dokka>
+        <!--<packageoptions prefix="org.w3c" reportUndocumented="false"/>-->
+        <!--<packageoptions prefix="org.khronos" reportUndocumented="false"/>-->
+        <!--<packageoptions prefix="jquery" suppress="true"/>-->
+        <!--<packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>-->
+        <target value="common"/>
+      </passconfig>
 
 
-    </target>
+      <!--include="${stdlib-include-md}"-->
+      <passconfig samples="${stdlib-samples}"
+                  moduleName="kotlin-stdlib"
+                  skipDeprecated="false"
+                  jdkversion="8"
+                  analysisPlatform="js"
+                  noStdlibLink="true"
+                  classpathref="stdlib-js.classpath"
+                  languageVersion="${language.version}">
+
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src"/>
+
+        <sourceroot path="${sources}/kotlin-stdlib-js"/>
+
+        <!--<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>-->
+
+        <!-- TODO Docs? -->
+        <packageoptions prefix="org.w3c" reportUndocumented="false"/>
+        <packageoptions prefix="org.khronos" reportUndocumented="false"/>
+        <packageoptions prefix="jquery" suppress="true"/>
+        <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
+
+        <target value="js"/>
+      </passconfig>
+
+
+      <impliedplatform value="jvm"/>
+      <impliedplatform value="common"/>
+      <impliedplatform value="js"/>
+
+    </dokka>
+
+
+  </target>
 </project>

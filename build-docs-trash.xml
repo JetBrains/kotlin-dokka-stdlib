@@ -42,29 +42,3 @@
 
 
 
-
-<passconfig samples="${stdlib-samples}"
-            moduleName="kotlin-stdlib-js"
-            skipDeprecated="false"
-            jdkversion="8"
-            analysisPlatform="js"
-            include="${stdlib-include-md}"
-            noStdlibLink="true"
-            classpathref="stdlib-js.classpath"
-            languageVersion="${language.version}">
-
-<sourceroot path="${sources}/kotlin-stdlib-js"/>
-
-<!--<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>-->
-
-<!-- TODO Docs? -->
-<packageoptions prefix="org.w3c" reportUndocumented="false"/>
-<packageoptions prefix="org.khronos" reportUndocumented="false"/>
-<packageoptions prefix="jquery" suppress="true"/>
-<packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
-
-<target value="js"/>
-</passconfig>
-
-
-
