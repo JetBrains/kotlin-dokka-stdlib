@@ -5,6 +5,7 @@ plugins {
 
 configurations {
   dokka
+  kotlin_sources
 }
 
 final String dokka_build = "611"
@@ -38,8 +39,8 @@ configurations {
   kotlin_jvm
 }
 
-final String kotlin_big_build_configuration = 'Kotlin_dev_CompilerAllPlugins'
-final String kotlin_big_version = '1.3.0-dev-498'
+final String kotlin_big_build_configuration = 'Kotlin_130_CompilerAllPlugins'
+final String kotlin_big_version = '1.3.0-rc-6'
 final String kotlin_big_build = "$kotlin_big_version"
 
 repositories {
@@ -92,6 +93,25 @@ modules.forEach { module ->
 }
 
 
+final File kotlinSourcesZip = new File(buildDir, "kotlin-${kotlin_big_build}.zip")
+final File kotlinTargetDir = new File(buildDir, "sources/kotlin")
+final File kotlinSources = new File(kotlinTargetDir, "kotlin-build-$kotlin_big_build")
+
+
+task downloadKotlinSources(type: Download) {
+  src "https://github.com/JetBrains/kotlin/archive/build-${kotlin_big_build}.zip"
+  dest kotlinSourcesZip
+  onlyIfModified true
+}
+
+task extractKotlinSources(type: Sync, dependsOn: downloadKotlinSources) {
+  from zipTree(kotlinSourcesZip) 
+  into kotlinTargetDir
+}
+
+extractAll.dependsOn extractKotlinSources
+
+
 final String ext
 if (System.getProperty('os.name', '').toLowerCase().contains('windows')) {
   ext = ".cmd"
@@ -126,6 +146,6 @@ task callDokka(type: Exec, dependsOn: extractAll) {
   // -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005
   environment("ANT_OPTS", "-Xmx3G")
   environment("JAVA_HOME", System.getProperty("java.home"))
-  commandLine antExe.path, "-f", file("build-docs.xml").path, "v2"
+  commandLine antExe.path, "-f", file("build-docs.xml").path, "v2", "-Dkotlin_root=$kotlinSources"
 }
 

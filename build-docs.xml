@@ -11,7 +11,7 @@
   <property name="docs.output" value="${build}/doc"/>
   <property name="dokka.format" value="kotlin-website-html"/>
 
-  <property name="kotlin_root" location="/Users/jonnyzzz/Work/kotlin"/>
+  <property name="kotlin_root" location="IT_IS_SET_FROM_GRADLE"/>
 
   <property name="language.version" value="1.3"/>
 
