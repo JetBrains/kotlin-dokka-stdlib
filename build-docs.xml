@@ -11,6 +11,8 @@
   <property name="docs.output" value="${build}/doc"/>
   <property name="dokka.format" value="kotlin-website-html"/>
 
+  <property name="kotlin_root" location="/Users/jonnyzzz/Work/kotlin"/>
+
   <property name="language.version" value="1.2"/>
 
   <typedef resource="dokka-antlib.xml">
@@ -38,10 +40,10 @@
     <pathelement location="${basedir}/lib/junit-4.11.jar"/>
   </path>
 
-  <property name="stdlib-samples" location="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/samples/test"/>
+  <property name="stdlib-samples" location="${kotlin_root}/libraries/stdlib/samples/test"/>
 
   <!-- TODO: one file for all modules? -->
-  <property name="stdlib-include-md" location="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/src/Module.md"/>
+  <property name="stdlib-include-md" location="${kotlin_root}/libraries/stdlib/src/Module.md"/>
 
   <target name="v2">
     <delete dir="${docs.output}" failonerror="false"/>
@@ -63,8 +65,8 @@
               classpathref="stdlib-common.classpath"
               languageVersion="${language.version}">
 
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src"/>
+        <sourceroot path="${kotlin_root}/core/builtins/native"/>
+        <sourceroot path="${kotlin_root}/core/builtins/src"/>
         <sourceroot path="${sources}/kotlin-stdlib-common"/>
 
         <!--<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>-->
@@ -87,8 +89,8 @@
                   classpathref="stdlib-js.classpath"
                   languageVersion="${language.version}">
 
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src"/>
+        <sourceroot path="${kotlin_root}/core/builtins/native"/>
+        <sourceroot path="${kotlin_root}/core/builtins/src"/>
 
         <sourceroot path="${sources}/kotlin-stdlib-js"/>
 
@@ -118,8 +120,8 @@
         <!--<sourceroot path="${sources}/kotlin-stdlib-jdk7"/>-->
         <sourceroot path="${sources}/kotlin-stdlib"/>
 
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src"/>
+        <sourceroot path="${kotlin_root}/core/builtins/native"/>
+        <sourceroot path="${kotlin_root}/core/builtins/src"/>
 
 
 
@@ -130,12 +132,12 @@
         <!--<sourceroot path="../core/builtins/native"/>-->
         <!--<sourceroot path="../core/builtins/src"/>-->
 
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/reflection.jvm/src"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>
+        <sourceroot path="${kotlin_root}/core/reflection.jvm/src"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>
 
         <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.coroutines.jvm.internal" suppress="true"/>
@@ -159,15 +161,15 @@
         <sourceroot path="${sources}/kotlin-stdlib-jdk7"/>
         <sourceroot path="${sources}/kotlin-stdlib"/>
 
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src"/>
+        <sourceroot path="${kotlin_root}/core/builtins/native"/>
+        <sourceroot path="${kotlin_root}/core/builtins/src"/>
 
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/reflection.jvm/src"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>
+        <sourceroot path="${kotlin_root}/core/reflection.jvm/src"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>
 
         <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.coroutines.jvm.internal" suppress="true"/>
@@ -193,15 +195,15 @@
         <sourceroot path="${sources}/kotlin-stdlib-jdk7"/>
         <sourceroot path="${sources}/kotlin-stdlib"/>
 
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src"/>
+        <sourceroot path="${kotlin_root}/core/builtins/native"/>
+        <sourceroot path="${kotlin_root}/core/builtins/src"/>
 
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/reflection.jvm/src"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>
-        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>
+        <sourceroot path="${kotlin_root}/core/reflection.jvm/src"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>
+        <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>
 
         <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.coroutines.jvm.internal" suppress="true"/>
