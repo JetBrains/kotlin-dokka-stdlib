@@ -144,7 +144,6 @@
         <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
 
 
-        <target value="jvm"/>
         <target value="jre6"/>
       </passconfig>
 
@@ -176,7 +175,7 @@
         <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
 
 
-        <target value="jvm"/>
+        <target value="jre6"/>
         <target value="jre7"/>
       </passconfig>
 
@@ -209,7 +208,8 @@
         <packageoptions prefix="kotlin.coroutines.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
 
-        <target value="jvm"/>
+        <target value="jre6"/>
+        <target value="jre7"/>
         <target value="jre8"/>
       </passconfig>
 
