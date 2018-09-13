@@ -50,6 +50,8 @@
            format="${dokka.format}"
            generateindexpages="true">
 
+
+
       <passconfig
               samples="${stdlib-samples}"
               moduleName="kotlin-stdlib"
@@ -102,10 +104,116 @@
       </passconfig>
 
 
+      <passconfig samples="${stdlib-samples}"
+                  moduleName="kotlin-stdlib"
+                  skipDeprecated="false"
+                  jdkversion="6"
+                  analysisPlatform="jvm"
+                  include="${stdlib-include-md}"
+                  noStdlibLink="true"
+                  classpathref="stdlib-jvm.classpath"
+                  languageVersion="${language.version}">
+
+        <!--<sourceroot path="${sources}/kotlin-stdlib-jdk8"/>-->
+        <!--<sourceroot path="${sources}/kotlin-stdlib-jdk7"/>-->
+        <sourceroot path="${sources}/kotlin-stdlib"/>
+
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src"/>
+
+
+
+        <!--<sourceroot path="stdlib/jvm/src"/>-->
+        <!--<sourceroot path="stdlib/jdk7/src"/>-->
+        <!--<sourceroot path="stdlib/jdk8/src"/>-->
+
+        <!--<sourceroot path="../core/builtins/native"/>-->
+        <!--<sourceroot path="../core/builtins/src"/>-->
+
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/reflection.jvm/src"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>
+
+        <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
+        <packageoptions prefix="kotlin.coroutines.jvm.internal" suppress="true"/>
+        <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
+
+
+        <target value="jvm"/>
+        <target value="jre6"/>
+      </passconfig>
+
+      <passconfig samples="${stdlib-samples}"
+                  moduleName="kotlin-stdlib"
+                  skipDeprecated="false"
+                  jdkversion="7"
+                  analysisPlatform="jvm"
+                  include="${stdlib-include-md}"
+                  noStdlibLink="true"
+                  classpathref="stdlib-jvm.classpath"
+                  languageVersion="${language.version}">
+
+        <sourceroot path="${sources}/kotlin-stdlib-jdk7"/>
+        <sourceroot path="${sources}/kotlin-stdlib"/>
+
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src"/>
+
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/reflection.jvm/src"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>
+
+        <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
+        <packageoptions prefix="kotlin.coroutines.jvm.internal" suppress="true"/>
+        <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
+
+
+        <target value="jvm"/>
+        <target value="jre7"/>
+      </passconfig>
+
+
+      <passconfig samples="${stdlib-samples}"
+                  moduleName="kotlin-stdlib"
+                  skipDeprecated="false"
+                  jdkversion="8"
+                  analysisPlatform="jvm"
+                  include="${stdlib-include-md}"
+                  noStdlibLink="true"
+                  classpathref="stdlib-jvm.classpath"
+                  languageVersion="${language.version}">
+
+        <sourceroot path="${sources}/kotlin-stdlib-jdk8"/>
+        <sourceroot path="${sources}/kotlin-stdlib-jdk7"/>
+        <sourceroot path="${sources}/kotlin-stdlib"/>
+
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/native"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/builtins/src"/>
+
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/core/reflection.jvm/src"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>
+        <sourceroot path="/Users/jonnyzzz/Work/kotlin/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>
+
+        <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
+        <packageoptions prefix="kotlin.coroutines.jvm.internal" suppress="true"/>
+        <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
+
+        <target value="jvm"/>
+        <target value="jre8"/>
+      </passconfig>
+
       <impliedplatform value="jvm"/>
       <impliedplatform value="common"/>
       <impliedplatform value="js"/>
-
     </dokka>
 
 
