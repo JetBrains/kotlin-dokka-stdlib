@@ -224,6 +224,6 @@
       <impliedplatform value="js"/>
     </dokka>
 
-    <echo message=" ##teamcity[publishArtifacts '${docs.output}/**/* => docs.zip'] " />
+    <echo message=" ##teamcity[publishArtifacts '${docs.output}/kotlin-stdlib => kotlin-stdlib.zip'] " />
   </target>
 </project>
