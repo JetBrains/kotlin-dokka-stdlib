@@ -97,11 +97,17 @@ final File kotlinSourcesZip = new File(buildDir, "kotlin-${kotlin_big_build}.zip
 final File kotlinTargetDir = new File(buildDir, "sources/kotlin")
 final File kotlinSources = new File(kotlinTargetDir, "kotlin-build-$kotlin_big_build")
 
+final String kotlinUrl = "https://github.com/JetBrains/kotlin/archive/build-${kotlin_big_build}.zip" 
 
 task downloadKotlinSources(type: Download) {
-  src "https://github.com/JetBrains/kotlin/archive/build-${kotlin_big_build}.zip"
+  src kotlinUrl
   dest kotlinSourcesZip
   onlyIfModified true
+  
+  //GitHub seems to update internal attributes, forcing slow reload
+  //assuming tag is used (it must not change)
+  inputs.property("url", kotlinUrl)
+  outputs.file(kotlinSourcesZip)
 }
 
 task extractKotlinSources(type: Sync, dependsOn: downloadKotlinSources) {
