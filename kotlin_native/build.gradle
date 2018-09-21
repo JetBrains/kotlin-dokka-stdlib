@@ -1,8 +1,12 @@
-apply plugin: 'com.github.jk1.tcdeps' 
+apply plugin: 'com.github.jk1.tcdeps'
+apply plugin: 'de.undercouch.download'
 
+//TODO: there is no direct sync between tag and K/N version :(
+final String kotlin_native_sources_version = '0.9.2'
+final String kotlin_native_sources_tag = "v${kotlin_native_sources_version}"
 
 final String kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist';
-final String kotlin_native_version = '0.9.2-dev-4066'
+final String kotlin_native_version = "${kotlin_native_sources_version}-dev-4066"
 final String kotlin_native_build = "$kotlin_native_version"
 
 repositories {
@@ -38,6 +42,28 @@ task extractKotlinNativeBinariesWindows(type: Sync) {
   into new File(kotlin_native_dir, 'windows')
 }
 
-task extractKotlinNative(dependsOn: [extractKotlinNativeBinariesLinux, extractKotlinNativeBinariesMac, extractKotlinNativeBinariesWindows]) {}
+final File kotlinSourcesZip = new File(buildDir, "kotlin-${kotlin_native_sources_tag}.zip")
+final File kotlinTargetDir = new File(buildDir, "kotlin-native-sources")
+final File kotlinSources = new File(kotlinTargetDir, "kotlin-native-${kotlin_native_sources_version}")
 
+final String kotlinUrl = "https://github.com/JetBrains/kotlin-native/archive/${kotlin_native_sources_tag}.zip"
+
+task downloadKotlinNativeSources(type: Download) {
+  src kotlinUrl
+  dest kotlinSourcesZip
+  overwrite false
+}
+
+task extractKotlinNativeSources(type: Sync, dependsOn: downloadKotlinNativeSources) {
+  from zipTree(kotlinSourcesZip)
+  into kotlinTargetDir
+}
+
+
+task extractKotlinNative(dependsOn: [extractKotlinNativeSources, extractKotlinNativeBinariesLinux, extractKotlinNativeBinariesMac, extractKotlinNativeBinariesWindows]) {}
+
+project.extensions.kotlin_native_root = kotlinSources
+project.extensions.kotlin_native_bin_linux = new File(kotlin_native_dir, "linux/kotlin-native-linux-${kotlin_native_version}")
+project.extensions.kotlin_native_bin_mac = new File(kotlin_native_dir, "mac/kotlin-native-mac-${kotlin_native_version}")
+project.extensions.kotlin_native_bin_windows = new File(kotlin_native_dir, "windows/kotlin-native-windows-${kotlin_native_version}")
 

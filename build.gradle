@@ -32,6 +32,7 @@ task extractAll(dependsOn: [setupDokka])
 extractAll.dependsOn ':kotlin_big:extractLibs'
 extractAll.dependsOn ':kotlin_big:extractSources'
 extractAll.dependsOn ':kotlin_big:extractKotlinSources'
+extractAll.dependsOn ':kotlin_native:extractKotlinNative'
 extractAll.dependsOn ':ant:extractAnt'
 
 task setupCallDokka() { }
@@ -45,6 +46,7 @@ task callDokka(type: Exec, dependsOn: [extractAll, setupCallDokka]) {
 setupCallDokka.doLast {
   def pAnt = project(':ant').extensions
   def pKotlinBig = project(':kotlin_big').extensions
+  def pKotlinNative = project(':kotlin_native').extensions
   
   callDokka.commandLine = [
           pAnt.ant_exe.path,
@@ -53,5 +55,9 @@ setupCallDokka.doLast {
           "-Dkotlin_root=${pKotlinBig.kotlin_root}",
           "-Dkotlin_sources=${pKotlinBig.kotlin_sources}",
           "-Dkotlin_libs=${pKotlinBig.kotlin_libs}",
+          "-Dkotlin_native_root=${pKotlinNative.kotlin_root}",
+          "-Dkotlin_native_linux=${pKotlinNative.kotlin_bin_linux}",
+          "-Dkotlin_native_windows=${pKotlinNative.kotlin_bin_windows}",
+          "-Dkotlin_native_mac=${pKotlinNative.kotlin_bin_mac}",
   ]
 }
