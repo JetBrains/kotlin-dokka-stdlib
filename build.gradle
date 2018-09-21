@@ -27,127 +27,24 @@ task setupDokka(type: Sync) {
   into dokkaHome
 }
 
+task extractAll(dependsOn: [setupDokka])
 
-repositories {
-  mavenCentral()
-  jcenter()
-}
+extractAll.dependsOn ':kotlin_big:extractLibs'
+extractAll.dependsOn ':kotlin_big:extractSources'
+extractAll.dependsOn ':kotlin_big:extractKotlinSources'
+extractAll.dependsOn ':ant:extractAnt'
 
-
-
-configurations {
-  kotlin_src
-  kotlin_jvm
-}
-
-final String kotlin_big_build_configuration = 'Kotlin_130_CompilerAllPlugins'
-final String kotlin_big_version = '1.3.0-rc-57'
-final String kotlin_big_build = "$kotlin_big_version"
-
-repositories {
-  maven { url = "https://teamcity.jetbrains.com/guestAuth/repository/download/$kotlin_big_build_configuration/$kotlin_big_build/maven" }
-}
-
-final List<String> modules = [
-        "kotlin-stdlib",
-        "kotlin-stdlib-common",
-        "kotlin-stdlib-jdk7",
-        "kotlin-stdlib-jdk8",
-        "kotlin-stdlib-js",
-        "kotlin-test",
-]
-
-
-task extractSources() { }
-task extractLibs() { }
-
-task extractAll(dependsOn: [setupDokka, extractSources, extractLibs])
-
-modules.forEach { module ->
-  final String src = "kotlin_src_$module"
-  final String lib = "kotlin_lib_$module"
-
-  final Configuration conf_src = configurations.create(src)
-  final Configuration  lib_src = configurations.create(lib)
-
-  dependencies {
-    "$src"(group: 'org.jetbrains.kotlin', name: module, version: kotlin_big_version, classifier: 'sources') { transitive = false }
-    "$lib"(group: 'org.jetbrains.kotlin', name: module, version: kotlin_big_version)
-  }
-
-  final Task sourcesTask = tasks.create("extract_source_$module", Sync) {
-    dependsOn conf_src
-
-    from { conf_src.collect { zipTree(it) } }
-    into "$buildDir/sources/$module"
-  }
-
-  final Task libsTask = tasks.create("extract_lib_$module", Sync) {
-    dependsOn lib_src
-
-    from { lib_src }
-    into "$buildDir/libs/$module"
-  }
-
-  extractSources.dependsOn sourcesTask
-  extractLibs.dependsOn libsTask
-}
-
-
-final File kotlinSourcesZip = new File(buildDir, "kotlin-${kotlin_big_build}.zip")
-final File kotlinTargetDir = new File(buildDir, "sources/kotlin")
-final File kotlinSources = new File(kotlinTargetDir, "kotlin-build-$kotlin_big_build")
-
-final String kotlinUrl = "https://github.com/JetBrains/kotlin/archive/build-${kotlin_big_build}.zip" 
-
-task downloadKotlinSources(type: Download) {
-  src kotlinUrl
-  dest kotlinSourcesZip
-  overwrite false
-}
-
-task extractKotlinSources(type: Sync, dependsOn: downloadKotlinSources) {
-  from zipTree(kotlinSourcesZip) 
-  into kotlinTargetDir
-}
-
-extractAll.dependsOn extractKotlinSources
-
-
-final String ext
-if (System.getProperty('os.name', '').toLowerCase().contains('windows')) {
-  ext = ".cmd"
-} else {
-  ext = ""
-}
-
-
-final String antVersion = "1.10.5"
-final String antURL = "https://www.apache.org/dist/ant/binaries/apache-ant-$antVersion-bin.zip"
-final File antHome = new File(buildDir, "ant-home")
-final File antZip = new File(buildDir, "apache-ant-$antVersion-bin.zip")
-final File antExe = new File(antHome, "apache-ant-$antVersion/bin/ant$ext") 
-
-task downloadAnt(type: Download) {
-  src antURL
-  dest buildDir
-  overwrite false
-}
-
-task extractAnt(type: Sync, dependsOn: downloadAnt) {
-  from zipTree(antZip)
-  into antHome
-}
-
-extractAll.dependsOn extractAnt
-
-
-
-task callDokka(type: Exec, dependsOn: extractAll) {
+task setupCallDokka() { }
+task callDokka(type: Exec, dependsOn: [extractAll, setupCallDokka]) {
   workingDir = projectDir
   // -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005
   environment("ANT_OPTS", "-Xmx3G")
   environment("JAVA_HOME", System.getProperty("java.home"))
-  commandLine antExe.path, "-f", file("build-docs.xml").path, "v2", "-Dkotlin_root=$kotlinSources"
 }
 
+setupCallDokka.doLast {
+  callDokka.commandLine project(':ant').ext.antExe.path, 
+                        "-f", file("build-docs.xml").path, 
+                        "v2", 
+                        "-Dkotlin_root=${project(':kotlin_big').extensions.kotlinSources}"
+}

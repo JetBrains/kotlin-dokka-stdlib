@@ -1,0 +1,43 @@
+apply plugin: 'com.github.jk1.tcdeps' 
+
+
+final String kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist';
+final String kotlin_native_version = '0.9.2-dev-4066'
+final String kotlin_native_build = "$kotlin_native_version"
+
+repositories {
+  teamcityServer { url = 'https://buildserver.labs.intellij.net' }
+}
+
+configurations {
+  kotlin_native_linux
+  kotlin_native_mac
+  kotlin_native_windows
+}
+
+dependencies {
+  kotlin_native_linux   tc(buildTypeId: kotlin_native_build_configuration, version: kotlin_native_build, artifactPath: "kotlin-native-linux-${kotlin_native_version}.tar.gz")
+  kotlin_native_mac     tc(buildTypeId: kotlin_native_build_configuration, version: kotlin_native_build, artifactPath: "kotlin-native-macos-${kotlin_native_version}.tar.gz")
+  kotlin_native_windows tc(buildTypeId: kotlin_native_build_configuration, version: kotlin_native_build, artifactPath: "kotlin-native-windows-${kotlin_native_version}.zip")
+}
+
+final File kotlin_native_dir = new File(buildDir, "kotlin_native")
+
+task extractKotlinNativeBinariesLinux(type: Sync) {
+  from { tarTree(resources.gzip(configurations.kotlin_native_linux.singleFile)) }
+  into new File(kotlin_native_dir, 'linux')
+}
+
+task extractKotlinNativeBinariesMac(type: Sync) {
+  from { tarTree(resources.gzip(configurations.kotlin_native_mac.singleFile)) }
+  into new File(kotlin_native_dir, 'mac')
+}
+
+task extractKotlinNativeBinariesWindows(type: Sync) {
+  from { zipTree(configurations.kotlin_native_windows.singleFile) }
+  into new File(kotlin_native_dir, 'windows')
+}
+
+task extractKotlinNative(dependsOn: [extractKotlinNativeBinariesLinux, extractKotlinNativeBinariesMac, extractKotlinNativeBinariesWindows]) {}
+
+
