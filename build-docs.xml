@@ -13,6 +13,11 @@
   <property name="kotlin_sources" location="IT_IS_SET_FROM_GRADLE2"/>
   <property name="kotlin_libs" location="IS_IS_SET_FROM_GRADLE3"/>
 
+  <property name="kotlin_native_root" location="IT_IS_SET_FROM_GRADLE6"/>
+  <property name="kotlin_native_linux" location="IT_IS_SET_FROM_GRADLE7"/>
+  <property name="kotlin_native_windows" location="IT_IS_SET_FROM_GRADLE8"/>
+  <property name="kotlin_native_mac" location="IT_IS_SET_FROM_GRADLE9"/>
+
   <property name="language.version" value="1.3"/>
 
   <typedef resource="dokka-antlib.xml">
@@ -35,6 +40,10 @@
     <fileset dir="${kotlin_libs}/kotlin-stdlib-js" includes="*.jar"/>
   </path>
 
+  <path id="stdlib-native.classpath">
+    <pathelement location="${kotlin_native_linux}/klib/common"/>
+  </path>
+
   <path id="kotlin-test.compile.classpath">
     <fileset dir="${basedir}/stdlib/jvm/build/libs/" includes="dist-kotlin-stdlib.jar"/>
     <pathelement location="${basedir}/lib/junit-4.11.jar"/>
@@ -52,6 +61,22 @@
            format="${dokka.format}"
            generateindexpages="true">
 
+      <passconfig
+              samples="${stdlib-samples}"
+              moduleName="kotlin-stdlib"
+              skipDeprecated="false"
+              jdkversion="8"
+              analysisplatform="common"
+              noStdlibLink="true"
+              nojdklink="true"
+              classpathref="stdlib-native.classpath"
+              languageVersion="${language.version}">
+
+        <sourceroot path="${kotlin_native_root}/Interop/Runtime/src"/>
+        <sourceroot path="${kotlin_native_root}/runtime/src/main/kotlin"/>
+
+        <target value="native" />
+      </passconfig>
 
 
       <passconfig
@@ -71,6 +96,7 @@
         <sourceroot path="${kotlin_sources}/kotlin-stdlib-common"/>
 
         <target value="common"/>
+        <target value="native"/>
         <target value="js"/>
         <target value="jre6"/>
         <target value="jre7"/>
