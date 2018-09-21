@@ -25,7 +25,5 @@ task extractAnt(type: Sync, dependsOn: downloadAnt) {
   into antHome
 }
 
-project.ext {
-  ant_exe = antExe
-}
+project.extensions.ant_exe = antExe
 

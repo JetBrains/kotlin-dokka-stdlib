@@ -32,6 +32,9 @@ task extractSources() { }
 task extractLibs() { }
 
 
+final File kotlin_lib_sources = new File(buildDir, 'sources')
+final File kotlin_lib_binaries = new File(buildDir, 'libs')
+
 modules.forEach { module ->
   final String src = "kotlin_src_$module"
   final String lib = "kotlin_lib_$module"
@@ -48,14 +51,14 @@ modules.forEach { module ->
     dependsOn conf_src
 
     from { conf_src.collect { zipTree(it) } }
-    into "$buildDir/sources/$module"
+    into "$kotlin_lib_sources/$module"
   }
 
   final Task libsTask = tasks.create("extract_lib_$module", Sync) {
     dependsOn lib_src
 
     from { lib_src }
-    into "$buildDir/libs/$module"
+    into "$kotlin_lib_binaries/$module"
   }
 
   extractSources.dependsOn sourcesTask
@@ -80,7 +83,6 @@ task extractKotlinSources(type: Sync, dependsOn: downloadKotlinSources) {
   into kotlinTargetDir
 }
 
-project.ext {
-  kotlin_sources = kotlinSources
-}
-
+project.extensions.kotlin_root = kotlinSources
+project.extensions.kotlin_sources = kotlin_lib_sources
+project.extensions.kotlin_libs = kotlin_lib_binaries

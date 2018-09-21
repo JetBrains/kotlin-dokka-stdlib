@@ -43,8 +43,15 @@ task callDokka(type: Exec, dependsOn: [extractAll, setupCallDokka]) {
 }
 
 setupCallDokka.doLast {
-  callDokka.commandLine project(':ant').ext.antExe.path, 
-                        "-f", file("build-docs.xml").path, 
-                        "v2", 
-                        "-Dkotlin_root=${project(':kotlin_big').extensions.kotlinSources}"
+  def pAnt = project(':ant').extensions
+  def pKotlinBig = project(':kotlin_big').extensions
+  
+  callDokka.commandLine = [
+          pAnt.ant_exe.path,
+          "-f", file("build-docs.xml").path,
+          "v2",
+          "-Dkotlin_root=${pKotlinBig.kotlin_root}",
+          "-Dkotlin_sources=${pKotlinBig.kotlin_sources}",
+          "-Dkotlin_libs=${pKotlinBig.kotlin_libs}",
+  ]
 }
