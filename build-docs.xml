@@ -70,7 +70,8 @@
               noStdlibLink="true"
               nojdklink="true"
               classpathref="stdlib-native.classpath"
-              languageVersion="${language.version}">
+              languageVersion="${language.version}"
+              includeRootPackage="false">
 
         <sourceroot path="${kotlin_native_root}/Interop/Runtime/src"/>
         <sourceroot path="${kotlin_native_root}/runtime/src/main/kotlin"/>
@@ -89,7 +90,8 @@
               noStdlibLink="true"
               nojdklink="true"
               classpathref="stdlib-common.classpath"
-              languageVersion="${language.version}">
+              languageVersion="${language.version}"
+              includeRootPackage="false">
 
         <sourceroot path="${kotlin_root}/core/builtins/native"/>
         <sourceroot path="${kotlin_root}/core/builtins/src"/>
@@ -113,7 +115,8 @@
                   noStdlibLink="true"
                   nojdklink="true"
                   classpathref="stdlib-js.classpath"
-                  languageVersion="${language.version}">
+                  languageVersion="${language.version}"
+                  includeRootPackage="false">
 
         <sourceroot path="${kotlin_root}/core/builtins/native"/>
         <sourceroot path="${kotlin_root}/core/builtins/src"/>
@@ -140,7 +143,8 @@
                   include="${stdlib-include-md}"
                   noStdlibLink="true"
                   classpathref="stdlib-jvm.classpath"
-                  languageVersion="${language.version}">
+                  languageVersion="${language.version}"
+                  includeRootPackage="false">
 
         <sourceroot path="${kotlin_sources}/kotlin-stdlib"/>
 
@@ -172,7 +176,8 @@
                   include="${stdlib-include-md}"
                   noStdlibLink="true"
                   classpathref="stdlib-jvm.classpath"
-                  languageVersion="${language.version}">
+                  languageVersion="${language.version}"
+                  includeRootPackage="false">
 
         <sourceroot path="${kotlin_sources}/kotlin-stdlib-jdk7"/>
         <sourceroot path="${kotlin_sources}/kotlin-stdlib"/>
@@ -207,7 +212,8 @@
                   noStdlibLink="true"
                   classpathref="stdlib-jvm.classpath"
                   classpath="${kotlin_libs}/stdlib"
-                  languageVersion="${language.version}">
+                  languageVersion="${language.version}"
+                  includeRootPackage="false">
 
         <sourceroot path="${kotlin_sources}/kotlin-stdlib-jdk8"/>
         <sourceroot path="${kotlin_sources}/kotlin-stdlib-jdk7"/>
