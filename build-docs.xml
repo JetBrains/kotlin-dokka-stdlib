@@ -73,8 +73,22 @@
               languageVersion="${language.version}"
               includeRootPackage="false">
 
-        <sourceroot path="${kotlin_native_root}/Interop/Runtime/src"/>
+        <!--
+        From https://github.com/JetBrains/kotlin-native/blob/6bc47171ca960b38d91332c5d84f6c4eeeeca06a/backend.native/build.gradle#L193
+        project(':Interop:Runtime').file('src/main/kotlin'),
+        project(':Interop:Runtime').file('src/native/kotlin'),
+        project(':Interop:JsRuntime').file('src/main/kotlin'),
+        project(':runtime').file('src/main/kotlin')
+        -->
+        <sourceroot path="${kotlin_native_root}/Interop/Runtime/src/main/kotlin"/>
+        <sourceroot path="${kotlin_native_root}/Interop/Runtime/src/native/kotlin"/>
+        <sourceroot path="${kotlin_native_root}/Interop/JsRuntime/src/main/kotlin"/>
         <sourceroot path="${kotlin_native_root}/runtime/src/main/kotlin"/>
+
+        <!-- and common sources, hope the same sources were used in K/N build -->
+        <sourceroot path="${kotlin_root}/core/builtins/native"/>
+        <sourceroot path="${kotlin_root}/core/builtins/src"/>
+        <sourceroot path="${kotlin_sources}/kotlin-stdlib-common"/>
 
         <target value="native" />
       </passconfig>
