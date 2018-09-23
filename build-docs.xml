@@ -90,6 +90,8 @@
         <sourceroot path="${kotlin_root}/core/builtins/src"/>
         <sourceroot path="${kotlin_sources}/kotlin-stdlib-common"/>
 
+        <packageoptions prefix="kotlin.native.internal" suppress="true"/>
+        
         <target value="native" />
       </passconfig>
 
