@@ -145,6 +145,7 @@
         <packageoptions prefix="org.khronos" reportUndocumented="false"/>
         <packageoptions prefix="jquery" suppress="true"/>
         <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
+        <packageoptions prefix="kotlin.js.internal" suppress="true"/>
 
         <target value="js"/>
       </passconfig>
