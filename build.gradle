@@ -35,8 +35,20 @@ extractAll.dependsOn ':kotlin_big:extractKotlinSources'
 extractAll.dependsOn ':kotlin_native:extractKotlinNative'
 extractAll.dependsOn ':ant:extractAnt'
 
+def pAnt() { return project(':ant').extensions }
+def pKotlinBig() { return project(':kotlin_big').extensions }
+def pKotlinNative() { return project(':kotlin_native').extensions }
+
+task cleanupSources(type: Delete) {
+  dependsOn extractAll
+  doFirst {
+    def base = file("${pKotlinNative().kotlin_native_root}/runtime/src/main/kotlin")
+    delete(files("$base/kotlin/Functions.kt", "$base/kotlin/coroutines/SuspendFunctions.kt"))
+  }
+}
+
 task setupCallDokka() { }
-task callDokka(type: Exec, dependsOn: [extractAll, setupCallDokka]) {
+task callDokka(type: Exec, dependsOn: [extractAll, setupCallDokka, cleanupSources]) {
   workingDir = projectDir
   // -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005
   environment("ANT_OPTS", "-Xmx3G")
@@ -44,20 +56,17 @@ task callDokka(type: Exec, dependsOn: [extractAll, setupCallDokka]) {
 }
 
 setupCallDokka.doLast {
-  def pAnt = project(':ant').extensions
-  def pKotlinBig = project(':kotlin_big').extensions
-  def pKotlinNative = project(':kotlin_native').extensions
   
   callDokka.commandLine = [
-          pAnt.ant_exe.path,
+          pAnt().ant_exe.path,
           "-f", file("build-docs.xml").path,
           "v2",
-          "-Dkotlin_root=${pKotlinBig.kotlin_root}",
-          "-Dkotlin_sources=${pKotlinBig.kotlin_sources}",
-          "-Dkotlin_libs=${pKotlinBig.kotlin_libs}",
-          "-Dkotlin_native_root=${pKotlinNative.kotlin_native_root}",
-          "-Dkotlin_native_linux=${pKotlinNative.kotlin_native_bin_linux}",
-          "-Dkotlin_native_windows=${pKotlinNative.kotlin_native_bin_windows}",
-          "-Dkotlin_native_mac=${pKotlinNative.kotlin_native_bin_mac}",
+          "-Dkotlin_root=${pKotlinBig().kotlin_root}",
+          "-Dkotlin_sources=${pKotlinBig().kotlin_sources}",
+          "-Dkotlin_libs=${pKotlinBig().kotlin_libs}",
+          "-Dkotlin_native_root=${pKotlinNative().kotlin_native_root}",
+          "-Dkotlin_native_linux=${pKotlinNative().kotlin_native_bin_linux}",
+          "-Dkotlin_native_windows=${pKotlinNative().kotlin_native_bin_windows}",
+          "-Dkotlin_native_mac=${pKotlinNative().kotlin_native_bin_mac}",
   ]
 }
