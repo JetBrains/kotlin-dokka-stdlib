@@ -181,6 +181,7 @@
         <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
 
         <target value="jvm"/>
+        <target value="jre6"/>
       </passconfig>
 
       <passconfig samples="${stdlib-samples}"
