@@ -82,8 +82,8 @@
 
         <target value="common"/>
         <target value="native"/>
-        <target value="jvm"/>
         <target value="js"/>
+        <target value="jvm"/>
       </passconfig>
 
 
