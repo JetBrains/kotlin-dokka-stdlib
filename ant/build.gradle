@@ -2,7 +2,7 @@ apply plugin: 'de.undercouch.download'
 
 final String ext
 if (System.getProperty('os.name', '').toLowerCase().contains('windows')) {
-  ext = ".cmd"
+  ext = ".bat"
 } else {
   ext = ""
 }
