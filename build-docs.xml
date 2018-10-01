@@ -80,10 +80,10 @@
 
         <sourceroot path="${kotlin_sources}/kotlin-stdlib-common"/>
 
-        <target value="common"/>
-        <target value="native"/>
-        <target value="js"/>
-        <target value="jvm"/>
+        <target value="Common"/>
+        <target value="Native"/>
+        <target value="JS"/>
+        <target value="JVM"/>
       </passconfig>
 
 
@@ -118,7 +118,7 @@
 
         <packageoptions prefix="kotlin.native.internal" suppress="true"/>
         
-        <target value="native" />
+        <target value="Native" />
       </passconfig>
 
       <!--include="${stdlib-include-md}"-->
@@ -147,7 +147,7 @@
         <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.js.internal" suppress="true"/>
 
-        <target value="js"/>
+        <target value="JS"/>
       </passconfig>
 
 
@@ -180,8 +180,8 @@
         <packageoptions prefix="kotlin.coroutines.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
 
-        <target value="jvm"/>
-        <target value="jre6"/>
+        <target value="JVM"/>
+        <target value="JRE6"/>
       </passconfig>
 
       <passconfig samples="${stdlib-samples}"
@@ -215,8 +215,8 @@
 
 
         <!--<target value="jre6"/>-->
-        <target value="jvm"/>
-        <target value="jre7"/>
+        <target value="JVM"/>
+        <target value="JRE7"/>
       </passconfig>
 
 
@@ -254,14 +254,14 @@
         <!--<target value="jre6"/>-->
         <!--<target value="jre7"/>-->
         <!--<target value="jre7"/>-->
-        <target value="jvm"/>
-        <target value="jre8"/>
+        <target value="JVM"/>
+        <target value="JRE8"/>
       </passconfig>
 
-      <impliedplatform value="common"/>
-      <impliedplatform value="native"/>
-      <impliedplatform value="jvm"/>
-      <impliedplatform value="js"/>
+      <impliedplatform value="Common"/>
+      <impliedplatform value="Native"/>
+      <impliedplatform value="JVM"/>
+      <impliedplatform value="JS"/>
 
     </dokka>
 
