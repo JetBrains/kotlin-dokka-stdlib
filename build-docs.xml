@@ -127,6 +127,7 @@
                   skipDeprecated="false"
                   jdkversion="8"
                   analysisPlatform="js"
+                  include="${stdlib-include-md}"
                   noStdlibLink="true"
                   nojdklink="true"
                   classpathref="stdlib-js.classpath"
