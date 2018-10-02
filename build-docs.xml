@@ -100,10 +100,6 @@
 
         <sourceroot path="${kotlin_sources}/kotlin-stdlib"/>
 
-        <!--<sourceroot path="${kotlin_root}/core/builtins/native"/>-->
-        <!--<sourceroot path="${kotlin_root}/core/builtins/src"/>-->
-
-
         <sourceroot path="${kotlin_root}/core/reflection.jvm/src"/>
         <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>
         <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>
@@ -132,17 +128,6 @@
                   includeRootPackage="false">
 
         <sourceroot path="${kotlin_sources}/kotlin-stdlib-jdk7"/>
-        <!--<sourceroot path="${kotlin_sources}/kotlin-stdlib"/>-->
-
-        <!--<sourceroot path="${kotlin_root}/core/builtins/native"/>-->
-        <!--<sourceroot path="${kotlin_root}/core/builtins/src"/>-->
-
-        <!--<sourceroot path="${kotlin_root}/core/reflection.jvm/src"/>-->
-        <!--<sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>-->
-        <!--<sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>-->
-        <!--<sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>-->
-        <!--<sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>-->
-        <!--<sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>-->
 
         <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.jvm.internal" suppress="true"/>
@@ -150,7 +135,6 @@
         <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
 
 
-        <!--<target value="jre6"/>-->
         <target value="JVM"/>
         <target value="JRE7"/>
       </passconfig>
@@ -169,27 +153,12 @@
                   includeRootPackage="false">
 
         <sourceroot path="${kotlin_sources}/kotlin-stdlib-jdk8"/>
-        <!--<sourceroot path="${kotlin_sources}/kotlin-stdlib-jdk7"/>-->
-        <!--<sourceroot path="${kotlin_sources}/kotlin-stdlib"/>-->
-
-        <!--<sourceroot path="${kotlin_root}/core/builtins/native"/>-->
-        <!--<sourceroot path="${kotlin_root}/core/builtins/src"/>-->
-
-        <!--<sourceroot path="${kotlin_root}/core/reflection.jvm/src"/>-->
-        <!--<sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/annotations"/>-->
-        <!--<sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/JvmClassMapping.kt"/>-->
-        <!--<sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/jvm/PurelyImplements.kt"/>-->
-        <!--<sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/TypeAliases.kt"/>-->
-        <!--<sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>-->
 
         <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.coroutines.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
 
-        <!--<target value="jre6"/>-->
-        <!--<target value="jre7"/>-->
-        <!--<target value="jre7"/>-->
         <target value="JVM"/>
         <target value="JRE8"/>
       </passconfig>
@@ -206,9 +175,6 @@
                   classpathref="stdlib-js.classpath"
                   languageVersion="${language.version}"
                   includeRootPackage="false">
-
-        <!--<sourceroot path="${kotlin_root}/core/builtins/native"/>-->
-        <!--<sourceroot path="${kotlin_root}/core/builtins/src"/>-->
 
         <sourceroot path="${kotlin_sources}/kotlin-stdlib-js"/>
 
@@ -247,11 +213,6 @@
         <sourceroot path="${kotlin_native_root}/Interop/Runtime/src/native/kotlin"/>
         <sourceroot path="${kotlin_native_root}/Interop/JsRuntime/src/main/kotlin"/>
         <sourceroot path="${kotlin_native_root}/runtime/src/main/kotlin"/>
-
-        <!-- and common sources, hope the same sources were used in K/N build -->
-        <!--<sourceroot path="${kotlin_root}/core/builtins/native"/>-->
-        <!--<sourceroot path="${kotlin_root}/core/builtins/src"/>-->
-        <!--<sourceroot path="${kotlin_sources}/kotlin-stdlib-common"/>-->
 
         <packageoptions prefix="kotlin.native.internal" suppress="true"/>
         
