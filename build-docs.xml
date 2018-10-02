@@ -81,76 +81,11 @@
         <sourceroot path="${kotlin_sources}/kotlin-stdlib-common"/>
 
         <target value="Common"/>
-        <target value="Native"/>
-        <target value="JS"/>
         <target value="JVM"/>
-      </passconfig>
-
-
-      <passconfig
-              samples="${stdlib-samples}"
-              moduleName="kotlin-stdlib"
-              skipDeprecated="false"
-              jdkversion="8"
-              analysisplatform="native"
-              noStdlibLink="true"
-              nojdklink="true"
-              classpathref="stdlib-native.classpath"
-              languageVersion="${language.version}"
-              includeRootPackage="false">
-
-        <!--
-        From https://github.com/JetBrains/kotlin-native/blob/6bc47171ca960b38d91332c5d84f6c4eeeeca06a/backend.native/build.gradle#L193
-        project(':Interop:Runtime').file('src/main/kotlin'),
-        project(':Interop:Runtime').file('src/native/kotlin'),
-        project(':Interop:JsRuntime').file('src/main/kotlin'),
-        project(':runtime').file('src/main/kotlin')
-        -->
-        <sourceroot path="${kotlin_native_root}/Interop/Runtime/src/main/kotlin"/>
-        <sourceroot path="${kotlin_native_root}/Interop/Runtime/src/native/kotlin"/>
-        <sourceroot path="${kotlin_native_root}/Interop/JsRuntime/src/main/kotlin"/>
-        <sourceroot path="${kotlin_native_root}/runtime/src/main/kotlin"/>
-
-        <!-- and common sources, hope the same sources were used in K/N build -->
-        <!--<sourceroot path="${kotlin_root}/core/builtins/native"/>-->
-        <!--<sourceroot path="${kotlin_root}/core/builtins/src"/>-->
-        <!--<sourceroot path="${kotlin_sources}/kotlin-stdlib-common"/>-->
-
-        <packageoptions prefix="kotlin.native.internal" suppress="true"/>
-        
-        <target value="Native" />
-      </passconfig>
-
-      <!--include="${stdlib-include-md}"-->
-      <passconfig samples="${stdlib-samples}"
-                  moduleName="kotlin-stdlib"
-                  skipDeprecated="false"
-                  jdkversion="8"
-                  analysisPlatform="js"
-                  include="${stdlib-include-md}"
-                  noStdlibLink="true"
-                  nojdklink="true"
-                  classpathref="stdlib-js.classpath"
-                  languageVersion="${language.version}"
-                  includeRootPackage="false">
-
-        <!--<sourceroot path="${kotlin_root}/core/builtins/native"/>-->
-        <!--<sourceroot path="${kotlin_root}/core/builtins/src"/>-->
-
-        <sourceroot path="${kotlin_sources}/kotlin-stdlib-js"/>
-
-        <!--<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>-->
-
-        <!-- TODO Docs? -->
-        <packageoptions prefix="org.w3c" reportUndocumented="false"/>
-        <packageoptions prefix="org.khronos" reportUndocumented="false"/>
-        <packageoptions prefix="jquery" suppress="true"/>
-        <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
-        <packageoptions prefix="kotlin.js.internal" suppress="true"/>
-
         <target value="JS"/>
-      </passconfig>
+        <target value="Native"/>
 
+      </passconfig>
 
       <passconfig samples="${stdlib-samples}"
                   moduleName="kotlin-stdlib"
@@ -257,6 +192,70 @@
         <!--<target value="jre7"/>-->
         <target value="JVM"/>
         <target value="JRE8"/>
+      </passconfig>
+
+      <!--include="${stdlib-include-md}"-->
+      <passconfig samples="${stdlib-samples}"
+                  moduleName="kotlin-stdlib"
+                  skipDeprecated="false"
+                  jdkversion="8"
+                  analysisPlatform="js"
+                  include="${stdlib-include-md}"
+                  noStdlibLink="true"
+                  nojdklink="true"
+                  classpathref="stdlib-js.classpath"
+                  languageVersion="${language.version}"
+                  includeRootPackage="false">
+
+        <!--<sourceroot path="${kotlin_root}/core/builtins/native"/>-->
+        <!--<sourceroot path="${kotlin_root}/core/builtins/src"/>-->
+
+        <sourceroot path="${kotlin_sources}/kotlin-stdlib-js"/>
+
+        <!--<sourcelink path=".." url="http://github.com/JetBrains/kotlin/blob/${github.revision}" linesuffix="#L"/>-->
+
+        <!-- TODO Docs? -->
+        <packageoptions prefix="org.w3c" reportUndocumented="false"/>
+        <packageoptions prefix="org.khronos" reportUndocumented="false"/>
+        <packageoptions prefix="jquery" suppress="true"/>
+        <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
+        <packageoptions prefix="kotlin.js.internal" suppress="true"/>
+
+        <target value="JS"/>
+      </passconfig>
+
+      <passconfig
+              samples="${stdlib-samples}"
+              moduleName="kotlin-stdlib"
+              skipDeprecated="false"
+              jdkversion="8"
+              analysisplatform="native"
+              noStdlibLink="true"
+              nojdklink="true"
+              classpathref="stdlib-native.classpath"
+              languageVersion="${language.version}"
+              includeRootPackage="false">
+
+        <!--
+        From https://github.com/JetBrains/kotlin-native/blob/6bc47171ca960b38d91332c5d84f6c4eeeeca06a/backend.native/build.gradle#L193
+        project(':Interop:Runtime').file('src/main/kotlin'),
+        project(':Interop:Runtime').file('src/native/kotlin'),
+        project(':Interop:JsRuntime').file('src/main/kotlin'),
+        project(':runtime').file('src/main/kotlin')
+        -->
+        <sourceroot path="${kotlin_native_root}/Interop/Runtime/src/main/kotlin"/>
+        <sourceroot path="${kotlin_native_root}/Interop/Runtime/src/native/kotlin"/>
+        <sourceroot path="${kotlin_native_root}/Interop/JsRuntime/src/main/kotlin"/>
+        <sourceroot path="${kotlin_native_root}/runtime/src/main/kotlin"/>
+
+        <!-- and common sources, hope the same sources were used in K/N build -->
+        <!--<sourceroot path="${kotlin_root}/core/builtins/native"/>-->
+        <!--<sourceroot path="${kotlin_root}/core/builtins/src"/>-->
+        <!--<sourceroot path="${kotlin_sources}/kotlin-stdlib-common"/>-->
+
+        <packageoptions prefix="kotlin.native.internal" suppress="true"/>
+        
+        <target value="Native" />
       </passconfig>
 
       <impliedplatform value="Common"/>
