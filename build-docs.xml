@@ -64,7 +64,7 @@
 
       <passconfig
               samples="${stdlib-samples}"
-              moduleName="kotlin-stdlib"
+              moduleName="stdlib"
               skipDeprecated="false"
               jdkversion="8"
               analysisplatform="common"
