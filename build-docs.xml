@@ -64,7 +64,7 @@
 
       <passconfig
               samples="${stdlib-samples}"
-              moduleName="stdlib"
+              moduleName="kotlin-stdlib"
               skipDeprecated="false"
               jdkversion="8"
               analysisplatform="common"
@@ -89,7 +89,7 @@
 
       <passconfig
               samples="${stdlib-samples}"
-              moduleName="stdlib"
+              moduleName="kotlin-stdlib"
               skipDeprecated="false"
               jdkversion="8"
               analysisplatform="native"
@@ -123,7 +123,7 @@
 
       <!--include="${stdlib-include-md}"-->
       <passconfig samples="${stdlib-samples}"
-                  moduleName="stdlib"
+                  moduleName="kotlin-stdlib"
                   skipDeprecated="false"
                   jdkversion="8"
                   analysisPlatform="js"
@@ -153,7 +153,7 @@
 
 
       <passconfig samples="${stdlib-samples}"
-                  moduleName="stdlib"
+                  moduleName="kotlin-stdlib"
                   skipDeprecated="false"
                   jdkversion="8"
                   analysisPlatform="jvm"
@@ -186,7 +186,7 @@
       </passconfig>
 
       <passconfig samples="${stdlib-samples}"
-                  moduleName="stdlib"
+                  moduleName="kotlin-stdlib"
                   skipDeprecated="false"
                   jdkversion="8"
                   analysisPlatform="jvm"
@@ -222,7 +222,7 @@
 
 
       <passconfig samples="${stdlib-samples}"
-                  moduleName="stdlib"
+                  moduleName="kotlin-stdlib"
                   skipDeprecated="false"
                   jdkversion="8"
                   analysisPlatform="jvm"
@@ -266,6 +266,6 @@
 
     </dokka>
 
-    <echo message=" ##teamcity[publishArtifacts '${docs.output}/stdlib => kotlin-stdlib.zip'] " />
+    <echo message=" ##teamcity[publishArtifacts '${docs.output}/kotlin-stdlib => kotlin-stdlib.zip'] " />
   </target>
 </project>
