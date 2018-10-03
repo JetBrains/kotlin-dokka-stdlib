@@ -79,8 +79,10 @@
   <!-- TODO: one file for all modules? -->
   <property name="stdlib-include-md" location="${kotlin_root}/libraries/stdlib/src/Module.md"/>
 
+  <property name="kotlin-test-include-md" location="${kotlin_root}/libraries/kotlin.test/Module.md"/>
+
   <target name="v2">
-    <delete dir="${docs.output}" failonerror="false"/>
+    <delete dir="${docs.output}/kotlin-stdlib" failonerror="false"/>
 
     <dokka outputDir="${docs.output}"
            format="${dokka.format}"
@@ -245,7 +247,7 @@
 
         <packageoptions prefix="kotlin.native.internal" suppress="true"/>
         <packageoptions prefix="kotlin.test" suppress="true"/>
-        
+
         <target value="Native" />
       </passconfig>
 
@@ -260,11 +262,14 @@
 
     <makeurl file="${docs.output}/kotlin-stdlib/package-list" property="stdlib.package.list"/>
 
+    <delete dir="${docs.output}/kotlin.test" failonerror="false"/>
+
     <dokka outputDir="${docs.output}"
              format="${dokka.format}"
              generateindexpages="true">
 
       <passconfig
+              include="${kotlin-test-include-md}"
               moduleName="kotlin.test"
               skipDeprecated="false"
               jdkversion="8"
@@ -282,6 +287,7 @@
       </passconfig>
 
         <passconfig
+                include="${kotlin-test-include-md}"
                 moduleName="kotlin.test"
                 skipDeprecated="false"
                 jdkversion="8"
@@ -297,6 +303,7 @@
 
 
       <passconfig
+              include="${kotlin-test-include-md}"
               moduleName="kotlin.test"
               skipDeprecated="false"
               jdkversion="8"
@@ -313,6 +320,7 @@
       </passconfig>
 
       <passconfig
+              include="${kotlin-test-include-md}"
               moduleName="kotlin.test"
               skipDeprecated="false"
               jdkversion="8"
@@ -330,6 +338,7 @@
       </passconfig>
 
       <passconfig
+              include="${kotlin-test-include-md}"
               moduleName="kotlin.test"
               skipDeprecated="false"
               jdkversion="8"
@@ -345,6 +354,7 @@
       </passconfig>
 
       <passconfig
+              include="${kotlin-test-include-md}"
               moduleName="kotlin.test"
               skipDeprecated="false"
               jdkversion="8"
@@ -360,6 +370,7 @@
       </passconfig>
 
       <passconfig
+              include="${kotlin-test-include-md}"
               moduleName="kotlin.test"
               skipDeprecated="false"
               jdkversion="8"
