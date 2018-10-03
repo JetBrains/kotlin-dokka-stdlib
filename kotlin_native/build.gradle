@@ -6,8 +6,8 @@ final String kotlin_native_sources_version = '0.9.3'
 final String kotlin_native_sources_tag = "v${kotlin_native_sources_version}"
 
 final String kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist';
-final String kotlin_native_version = "${kotlin_native_sources_version}-release-4223"
-final String kotlin_native_build = "$kotlin_native_version"
+final String kotlin_native_version = "${kotlin_native_sources_version}"
+final String kotlin_native_build = "${kotlin_native_version}-release-4223"
 
 repositories {
   teamcityServer { url = 'https://buildserver.labs.intellij.net' }
