@@ -230,5 +230,25 @@
     </dokka>
 
     <echo message=" ##teamcity[publishArtifacts '${docs.output}/kotlin-stdlib => kotlin-stdlib.zip'] " />
+
+    <dokka outputDir="${docs.output}"
+             format="${dokka.format}"
+             generateindexpages="true">
+        <passconfig
+                moduleName="kotlin.test"
+                skipDeprecated="false"
+                jdkversion="8"
+                analysisplatform="jvm"
+                classpathref="stdlib-jvm.classpath"
+                languageVersion="${language.version}"
+                includeRootPackage="false">
+            <sourceroot path="${kotlin_root}/libraries/kotlin.test/jvm/src/main/kotlin"/>
+
+            <target value="JVM" />
+            <target value="JRE6"/>
+        </passconfig>
+    </dokka>
+
+    <echo message=" ##teamcity[publishArtifacts '${docs.output}/kotlin.test => kotlin.test.zip'] " />
   </target>
 </project>
