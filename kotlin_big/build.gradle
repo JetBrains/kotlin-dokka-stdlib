@@ -25,6 +25,11 @@ final List<String> modules = [
         "kotlin-stdlib-jdk8",
         "kotlin-stdlib-js",
         "kotlin-test",
+        "kotlin-test-js",
+        "kotlin-test-junit5",
+        "kotlin-test-junit",
+        "kotlin-test-testng",
+        "kotlin-test-common",
 ]
 
 
