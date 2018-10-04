@@ -276,7 +276,8 @@
               analysisplatform="common"
               classpathref="kotlin-test-common.classpath"
               languageVersion="${language.version}"
-              includeRootPackage="false">
+              includeRootPackage="false"
+              sincekotlin="1.2">
         <sourceroot path="${kotlin_root}/libraries/kotlin.test/common/src/main/kotlin"/>
         <sourceroot path="${kotlin_root}/libraries/kotlin.test/annotations-common/src/main/kotlin"/>
 
@@ -362,7 +363,8 @@
               analysisplatform="js"
               classpathref="kotlin-test-js.classpath"
               languageVersion="${language.version}"
-              includeRootPackage="false">
+              includeRootPackage="false"
+              sincekotlin="1.1">
         <sourceroot path="${kotlin_root}/libraries/kotlin.test/js/src/main/kotlin"/>
 
         <packageoptions prefix="org.junit" skipdeprecated="true"/>
@@ -378,7 +380,8 @@
               analysisplatform="js"
               classpathref="kotlin-test-js.classpath"
               languageVersion="${language.version}"
-              includeRootPackage="false">
+              includeRootPackage="false"
+              sincekotlin="1.3">
         <sourceroot path="${kotlin_native_root}/runtime/src/main/kotlin/kotlin/test"/>
 
         <target value="Native" />
