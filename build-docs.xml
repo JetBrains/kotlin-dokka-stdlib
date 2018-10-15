@@ -101,7 +101,7 @@
               classpathref="stdlib-common.classpath"
               languageVersion="${language.version}"
               includeRootPackage="false"
-              sincekotlin="1.2">
+              sincekotlin="1.0">
 
         <sourceroot path="${kotlin_root}/core/builtins/native"/>
         <sourceroot path="${kotlin_root}/core/builtins/src"/>
@@ -277,7 +277,7 @@
               classpathref="kotlin-test-common.classpath"
               languageVersion="${language.version}"
               includeRootPackage="false"
-              sincekotlin="1.2">
+              sincekotlin="1.0">
         <sourceroot path="${kotlin_root}/libraries/kotlin.test/common/src/main/kotlin"/>
         <sourceroot path="${kotlin_root}/libraries/kotlin.test/annotations-common/src/main/kotlin"/>
 
