@@ -16,6 +16,10 @@ final String kotlin_big_build = "$kotlin_big_version"
 
 repositories {
   maven { url = "https://teamcity.jetbrains.com/guestAuth/repository/download/$kotlin_big_build_configuration/$kotlin_big_build/maven" }
+  maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+  maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
+  jcenter()
+  mavenCentral()
 }
 
 final List<String> modules = [
