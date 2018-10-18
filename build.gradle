@@ -43,7 +43,8 @@ task cleanupSources(type: Delete) {
   dependsOn extractAll
   doFirst {
     def base = file("${pKotlinNative().kotlin_native_root}/runtime/src/main/kotlin")
-    delete(files("$base/kotlin/Functions.kt", "$base/kotlin/coroutines/SuspendFunctions.kt"))
+    delete(files("$base/kotlin/Functions.kt", "$base/kotlin/coroutines/SuspendFunctions.kt",
+            "$base/kotlin/reflect/KFunctions.kt"))
   }
 }
 
