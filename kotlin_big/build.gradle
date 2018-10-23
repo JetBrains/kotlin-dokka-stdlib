@@ -12,8 +12,8 @@ configurations {
 }
 
 final String kotlin_big_build_configuration = 'Kotlin_130_CompilerAllPlugins'
-final String kotlin_big_version = '1.3.0-rc-146'
-final String kotlin_big_build = "$kotlin_big_version"
+final String kotlin_big_version = '1.3.0-rc-202'
+final String kotlin_big_build = "1.3.0-rc-202"
 
 repositories {
   maven { url = "https://teamcity.jetbrains.com/guestAuth/repository/download/$kotlin_big_build_configuration/$kotlin_big_build/maven" }

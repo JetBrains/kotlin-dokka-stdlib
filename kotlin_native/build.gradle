@@ -3,12 +3,12 @@ apply plugin: 'de.undercouch.download'
 apply plugin: 'base'
 
 //TODO: there is no direct sync between tag and K/N version :(
-final String kotlin_native_sources_version = '0.9.3'
-final String kotlin_native_sources_tag = "v${kotlin_native_sources_version}"
+final String kotlin_native_sources_version = '1.1'
+final String kotlin_native_sources_tag = "ec9b057e5a0fa69d1bad4d60219649a7d2ed3a1d" // "v${kotlin_native_sources_version}"
 
 final String kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist';
-final String kotlin_native_version = "${kotlin_native_sources_version}"
-final String kotlin_native_build = "${kotlin_native_version}-release-4223"
+final String kotlin_native_version = "1.1-dev-4569" // "${kotlin_native_sources_version}"
+final String kotlin_native_build = "1.1-dev-4569" // "${kotlin_native_version}-release-4565"
 
 repositories {
   teamcityServer { url = 'https://buildserver.labs.intellij.net' }
@@ -45,7 +45,9 @@ task extractKotlinNativeBinariesWindows(type: Sync) {
 
 final File kotlinSourcesZip = new File(buildDir, "kotlin-${kotlin_native_sources_tag}.zip")
 final File kotlinTargetDir = new File(buildDir, "kotlin-native-sources")
-final File kotlinSources = new File(kotlinTargetDir, "kotlin-native-${kotlin_native_sources_version}")
+// github strips leading 'v' from tag for archive suffix
+final String kotlinSourcesSuffix = (kotlin_native_sources_tag.startsWith("v")) ? kotlin_native_sources_tag.drop(1) : kotlin_native_sources_tag
+final File kotlinSources = new File(kotlinTargetDir, "kotlin-native-${kotlinSourcesSuffix}")
 
 final String kotlinUrl = "https://github.com/JetBrains/kotlin-native/archive/${kotlin_native_sources_tag}.zip"
 
