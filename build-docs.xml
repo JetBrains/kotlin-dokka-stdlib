@@ -137,6 +137,7 @@
         <sourceroot path="${kotlin_root}/libraries/stdlib/jvm/runtime/kotlin/text/TypeAliases.kt"/>
 
         <packageoptions prefix="kotlin.reflect.jvm.internal" suppress="true"/>
+        <packageoptions prefix="kotlin.jvm.functions" suppress="true"/>
         <packageoptions prefix="kotlin.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.coroutines.jvm.internal" suppress="true"/>
         <packageoptions prefix="kotlin.coroutines.experimental.migration" suppress="true"/>
