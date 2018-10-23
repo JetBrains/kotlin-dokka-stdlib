@@ -1,4 +1,5 @@
 apply plugin: 'de.undercouch.download'
+apply plugin: 'base'
 
 repositories {
   mavenCentral()
