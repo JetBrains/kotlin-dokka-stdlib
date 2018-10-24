@@ -4,7 +4,7 @@ apply plugin: 'base'
 
 //TODO: there is no direct sync between tag and K/N version :(
 final String kotlin_native_sources_version = '1.1'
-final String kotlin_native_sources_tag = "ec9b057e5a0fa69d1bad4d60219649a7d2ed3a1d" // "v${kotlin_native_sources_version}"
+final String kotlin_native_sources_tag = "0015b608ace2053c7b457896319aafa7bfc0cf35" // "v${kotlin_native_sources_version}"
 
 final String kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist';
 final String kotlin_native_version = "1.1-dev-4569" // "${kotlin_native_sources_version}"
