@@ -54,6 +54,10 @@ task callDokka(type: Exec, dependsOn: [extractAll, setupCallDokka, cleanupSource
   // -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005
   environment("ANT_OPTS", "-Xmx3G")
   environment("JAVA_HOME", System.getProperty("java.home"))
+  doFirst {
+    def logFile = file("$buildDir/dokka.log")
+    standardOutput = new org.apache.tools.ant.util.TeeOutputStream(standardOutput, new FileOutputStream(logFile))
+  }
 }
 
 setupCallDokka.doLast {
