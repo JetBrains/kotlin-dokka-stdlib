@@ -4,11 +4,11 @@ apply plugin: 'base'
 
 //TODO: there is no direct sync between tag and K/N version :(
 final String kotlin_native_sources_version = '1.1'
-final String kotlin_native_sources_tag = "fb79c6af03fbf6aeef6c33b47b486630c3996339" // "v${kotlin_native_sources_version}"
+final String kotlin_native_sources_tag = "9586dca4e5b7800a66df30d000dd771108bedff9" // "v${kotlin_native_sources_version}"
 
 final String kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist';
-final String kotlin_native_version = "1.0.2" // "${kotlin_native_sources_version}"
-final String kotlin_native_build = "1.0.2-release-4769" // "${kotlin_native_version}-release-4565"
+final String kotlin_native_version = "1.1-rc2-5686" // "${kotlin_native_sources_version}"
+final String kotlin_native_build = "1.1-rc2-5686" // "${kotlin_native_version}-release-4565"
 
 repositories {
   teamcityServer { url = 'https://buildserver.labs.intellij.net' }

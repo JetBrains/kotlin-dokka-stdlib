@@ -11,9 +11,9 @@ configurations {
   kotlin_jvm
 }
 
-final String kotlin_big_build_configuration = 'Kotlin_130_CompilerAllPlugins'
-final String kotlin_big_version = findProperty("kotlinLocalVersionOverride") ?: '1.3.10'
-final String kotlin_big_build = "1.3.10-release-253"
+final String kotlin_big_build_configuration = 'Kotlin_1320_CompilerAllPlugins'
+final String kotlin_big_version = findProperty("kotlinLocalVersionOverride") ?: '1.3.20-eap-106'
+final String kotlin_big_build = "1.3.20-eap-106"
 
 repositories {
   if (findProperty("kotlinLocalVersionOverride") != null) mavenLocal()
