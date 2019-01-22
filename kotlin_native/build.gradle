@@ -47,10 +47,6 @@ final String teamCityBuildsURL = "$buildServer/guestAuth/app/rest/builds/buildTy
 
 final File kotlinSourcesZip = new File(buildDir, "kotlin-${kotlin_native_build}.zip")
 final File kotlinTargetDir = new File(buildDir, "kotlin-native-sources")
-// github strips leading 'v' from tag for archive suffix
-final File kotlinSources = new File(kotlinTargetDir, "kotlin-native-sources-${kotlin_native_build}")
-
-
 
 
 task getTeamCityBuildInfo(type: Download) {
@@ -94,11 +90,16 @@ task extractKotlinNativeSources(type: Sync, dependsOn: downloadKotlinNativeSourc
   enabled = findProperty("kotlinNativeLocalRoot") == null
   from zipTree(kotlinSourcesZip)
   into kotlinTargetDir
+  
+  eachFile { FileCopyDetails file ->
+    //assume all files in the folder
+    file.path = file.path.split("/", 2)[1]
+  }
 }
 
 task extractKotlinNative(dependsOn: [extractKotlinNativeSources, extractKotlinNativeBinariesLinux, extractKotlinNativeBinariesMac, extractKotlinNativeBinariesWindows]) {}
 
-project.extensions.kotlin_native_root = findProperty("kotlinNativeLocalRoot") ?: kotlinSources
+project.extensions.kotlin_native_root = findProperty("kotlinNativeLocalRoot") ?: kotlinTargetDir
 project.extensions.kotlin_native_bin_linux = new File(kotlin_native_dir, "linux/kotlin-native-linux-${kotlin_native_version}")
 project.extensions.kotlin_native_bin_mac = new File(kotlin_native_dir, "mac/kotlin-native-mac-${kotlin_native_version}")
 project.extensions.kotlin_native_bin_windows = new File(kotlin_native_dir, "windows/kotlin-native-windows-${kotlin_native_version}")
