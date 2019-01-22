@@ -3,15 +3,13 @@ apply plugin: 'de.undercouch.download'
 apply plugin: 'base'
 
 //TODO: there is no direct sync between tag and K/N version :(
-final String kotlin_native_sources_version = '1.1'
-final String kotlin_native_sources_tag = "fb79c6af03fbf6aeef6c33b47b486630c3996339" // "v${kotlin_native_sources_version}"
-
 final String kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist';
-final String kotlin_native_version = "1.0.2" // "${kotlin_native_sources_version}"
-final String kotlin_native_build = "1.0.2-release-4769" // "${kotlin_native_version}-release-4565"
+final String kotlin_native_version = "1.1" // "${kotlin_native_sources_version}"
+final String kotlin_native_build = "1.1-release-5988" // "${kotlin_native_version}-release-4565"
 
+final String buildServer = 'https://buildserver.labs.intellij.net'
 repositories {
-  teamcityServer { url = 'https://buildserver.labs.intellij.net' }
+  teamcityServer { url = buildServer }
 }
 
 configurations {
@@ -43,31 +41,113 @@ task extractKotlinNativeBinariesWindows(type: Sync) {
   into new File(kotlin_native_dir, 'windows')
 }
 
-final File kotlinSourcesZip = new File(buildDir, "kotlin-${kotlin_native_sources_tag}.zip")
-final File kotlinTargetDir = new File(buildDir, "kotlin-native-sources")
-// github strips leading 'v' from tag for archive suffix
-final String kotlinSourcesSuffix = (kotlin_native_sources_tag.startsWith("v")) ? kotlin_native_sources_tag.drop(1) : kotlin_native_sources_tag
-final File kotlinSources = new File(kotlinTargetDir, "kotlin-native-${kotlinSourcesSuffix}")
 
-final String kotlinUrl = "https://github.com/JetBrains/kotlin-native/archive/${kotlin_native_sources_tag}.zip"
+final File teamCityBuildInfo = new File(buildDir, "kotlin-native-build-${kotlin_native_build}.xml")
+final File teamCityArtifactsInfo = new File(buildDir, "kotlin-native-build-${kotlin_native_build}-artifacts.xml")
+final String teamCityBuildsURL = "$buildServer/guestAuth/app/rest/builds/buildType:${kotlin_native_build_configuration},branch:default:any,number:${kotlin_native_build}"
 
-task downloadKotlinNativeSources(type: Download) {
-  src kotlinUrl
-  dest kotlinSourcesZip
+task getTeamCityBuildInfo(type: Download) {
+  final String url =  teamCityBuildsURL
+  println url
+  src url
+  dest teamCityBuildInfo
   overwrite false
 }
 
-task extractKotlinNativeSources(type: Sync, dependsOn: downloadKotlinNativeSources) {
+task getTeamCityArtifactsInfo(type: Download) {
+  final String url =  "$teamCityBuildsURL/artifacts"
+  println url
+  src url
+  dest teamCityArtifactsInfo
+  overwrite false
+}
+
+class KotlinDownloadInfo extends DefaultTask {
+  @InputFile
+  File teamCityBuildInfo
+  
+  @OutputFile
+  File kotlinSourcesZip
+  
+  @OutputFile
+  File kotlinTargetDir
+  
+  @OutputFile
+  File kotlinSources
+
+  String kotlinUrl
+  
+  def zipFileTree(Project project) {
+    if (kotlinSourcesZip == null) return null
+    return project.zipTree(kotlinSourcesZip)
+  }
+  
+  @TaskAction
+  void executeTask() {
+    def xml = new XmlParser(false, false).parse(teamCityBuildInfo)
+    def revisions = xml.revisions as List<Node>
+    println revisions
+
+    if (revisions.size() != 1) {
+      throw new Error("Select the right VCS root from the list. Too many <revisions> elements in : $xml")
+    }
+
+    def revisionsNode = revisions[0]
+    if (revisionsNode.attribute("count") != "1") {
+      throw new Error("Select the right VCS root from the list: $revisionsNode")
+    }
+
+    final String kotlin_native_sources_tag = revisionsNode.children()[0].attribute("version")
+
+    println "Detected Kotlin/Native revision: $kotlin_native_sources_tag"
+
+    kotlinSourcesZip = new File(buildDir, "kotlin-${kotlin_native_sources_tag}.zip")
+    kotlinTargetDir = new File(buildDir, "kotlin-native-sources")
+    // github strips leading 'v' from tag for archive suffix
+    final String kotlinSourcesSuffix = (kotlin_native_sources_tag.startsWith("v")) ? kotlin_native_sources_tag.drop(1) : kotlin_native_sources_tag
+    
+    kotlinSources = new File(kotlinTargetDir, "kotlin-native-${kotlinSourcesSuffix}")
+    kotlinUrl = "https://github.com/JetBrains/kotlin-native/archive/${kotlin_native_sources_tag}.zip"
+  }
+}
+
+task inferTeamCityRevisionInfo(type: KotlinDownloadInfo) {
+  teamCityBuildInfo = teamCityBuildInfo
+  dependsOn getTeamCityBuildInfo, getTeamCityArtifactsInfo
+}
+
+task downloadKotlinNativeSources(type: Download, dependsOn: inferTeamCityRevisionInfo) {
+  doFirst {
+    inferTeamCityRevisionInfo.with {
+      src kotlinUrl
+      dest kotlinSourcesZip
+      overwrite false
+    }
+  }
+}
+
+task extractKotlinNativeSources(type: Sync) {
+  dependsOn downloadKotlinNativeSources, inferTeamCityRevisionInfo
+  
   enabled = findProperty("kotlinNativeLocalRoot") == null
-  from zipTree(kotlinSourcesZip)
-  into kotlinTargetDir
+
+  from { inferTeamCityRevisionInfo.zipFileTree(project) }
+  into { inferTeamCityRevisionInfo.kotlinTargetDir }
 }
 
 
-task extractKotlinNative(dependsOn: [extractKotlinNativeSources, extractKotlinNativeBinariesLinux, extractKotlinNativeBinariesMac, extractKotlinNativeBinariesWindows]) {}
+task extractKotlinNative() {
+  dependsOn extractKotlinNativeSources,
+          extractKotlinNativeBinariesLinux,
+          extractKotlinNativeBinariesMac,
+          extractKotlinNativeBinariesWindows
 
-project.extensions.kotlin_native_root = findProperty("kotlinNativeLocalRoot") ?: kotlinSources
-project.extensions.kotlin_native_bin_linux = new File(kotlin_native_dir, "linux/kotlin-native-linux-${kotlin_native_version}")
-project.extensions.kotlin_native_bin_mac = new File(kotlin_native_dir, "mac/kotlin-native-mac-${kotlin_native_version}")
-project.extensions.kotlin_native_bin_windows = new File(kotlin_native_dir, "windows/kotlin-native-windows-${kotlin_native_version}")
-
+  doLast {
+    project.extensions.kotlinDownloadInfo.with {
+      project.extensions.kotlin_native_root = findProperty("kotlinNativeLocalRoot") ?: kotlinSources
+      project.extensions.kotlin_native_bin_linux = new File(kotlin_native_dir, "linux/kotlin-native-linux-${kotlin_native_version}")
+      project.extensions.kotlin_native_bin_mac = new File(kotlin_native_dir, "mac/kotlin-native-mac-${kotlin_native_version}")
+      project.extensions.kotlin_native_bin_windows = new File(kotlin_native_dir, "windows/kotlin-native-windows-${kotlin_native_version}")
+    }
+  }
+}
