@@ -79,8 +79,6 @@ modules.forEach { module ->
 
 final File kotlinSourcesZip = new File(buildDir, "kotlin-${kotlin_big_build}.zip")
 final File kotlinTargetDir = new File(buildDir, "sources/kotlin")
-final String kotlinSourcesDirName = "kotlin-build-$kotlin_big_build"
-final File kotlinSources = new File(kotlinTargetDir, kotlinSourcesDirName)
 final String kotlinUrl = "https://github.com/JetBrains/kotlin/archive/build-${kotlin_big_build}.zip"
 
 task downloadKotlinSources(type: Download) {
@@ -92,11 +90,19 @@ task downloadKotlinSources(type: Download) {
 task extractKotlinSources(type: Sync, dependsOn: downloadKotlinSources) {
   enabled = findProperty("kotlinLocalRoot") == null
   from zipTree(kotlinSourcesZip)
-  include "$kotlinSourcesDirName/libraries/**"
-  include "$kotlinSourcesDirName/core/**"
+  include "*/libraries/**"
+  include "*/core/**"
+
+  includeEmptyDirs = false
+
+  eachFile { FileCopyDetails file ->
+    //assume all files in the folder
+    file.path = file.path.split("/", 2)[1]
+  }
+  
   into kotlinTargetDir
 }
 
-project.extensions.kotlin_root = findProperty("kotlinLocalRoot") ?: kotlinSources
+project.extensions.kotlin_root = findProperty("kotlinLocalRoot") ?: kotlinTargetDir
 project.extensions.kotlin_sources = kotlin_lib_sources
 project.extensions.kotlin_libs = kotlin_lib_binaries

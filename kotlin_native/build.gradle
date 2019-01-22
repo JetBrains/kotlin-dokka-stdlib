@@ -90,7 +90,8 @@ task extractKotlinNativeSources(type: Sync, dependsOn: downloadKotlinNativeSourc
   enabled = findProperty("kotlinNativeLocalRoot") == null
   from zipTree(kotlinSourcesZip)
   into kotlinTargetDir
-  
+  includeEmptyDirs = false
+
   eachFile { FileCopyDetails file ->
     //assume all files in the folder
     file.path = file.path.split("/", 2)[1]
