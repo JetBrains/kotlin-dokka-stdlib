@@ -88,21 +88,34 @@ task downloadKotlinSources(type: Download) {
 }
 
 task extractKotlinSources(type: Sync, dependsOn: downloadKotlinSources) {
-  enabled = findProperty("kotlinLocalRoot") == null
-  from zipTree(kotlinSourcesZip)
-  include "*/libraries/**"
-  include "*/core/**"
+  String pathPrefix = ""
+
+  if (project.findProperty("kotlinLocalRoot") != null) {
+      from project.property("kotlinLocalRoot")
+      exclude "**/build"
+      exclude "**/node_modules"
+  } else {
+      from zipTree(kotlinSourcesZip)
+      pathPrefix = "*/"
+
+      eachFile { FileCopyDetails file ->
+          //assume all files in the folder
+          file.path = file.path.split("/", 2)[1]
+      }
+  }
+
+  include "${pathPrefix}libraries/stdlib/**"
+  include "${pathPrefix}libraries/kotlin.test/**"
+  include "${pathPrefix}core/builtins/**"
+  include "${pathPrefix}core/reflection.jvm/**"
+
+  exclude "${pathPrefix}core/builtins/src/kotlin/reflect/"
 
   includeEmptyDirs = false
 
-  eachFile { FileCopyDetails file ->
-    //assume all files in the folder
-    file.path = file.path.split("/", 2)[1]
-  }
-  
   into kotlinTargetDir
 }
 
-project.extensions.kotlin_root = findProperty("kotlinLocalRoot") ?: kotlinTargetDir
+project.extensions.kotlin_root = kotlinTargetDir
 project.extensions.kotlin_sources = kotlin_lib_sources
 project.extensions.kotlin_libs = kotlin_lib_binaries
