@@ -4,8 +4,8 @@ apply plugin: 'base'
 
 //TODO: there is no direct sync between tag and K/N version :(
 final String kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist';
-final String kotlin_native_version = "1.2-eap-9117" // "${kotlin_native_sources_version}"
-final String kotlin_native_build = "1.2-eap-9117" // "${kotlin_native_version}-release-4565"
+final String kotlin_native_version = "1.2" // "${kotlin_native_sources_version}"
+final String kotlin_native_build = "1.2-release-9411" // "${kotlin_native_version}-release-4565"
 
 final String buildServer = 'https://buildserver.labs.intellij.net'
 repositories {
