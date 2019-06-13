@@ -1,15 +1,32 @@
-apply plugin: 'com.github.jk1.tcdeps'
 apply plugin: 'de.undercouch.download'
 apply plugin: 'base'
 
 //TODO: there is no direct sync between tag and K/N version :(
-final String kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist';
-final String kotlin_native_version = "1.3" // "${kotlin_native_sources_version}"
-final String kotlin_native_build = "1.3-release-10826" // "${kotlin_native_version}-release-4565"
+ext.kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist'
+ext.kotlin_native_version = "1.3" // "${kotlin_native_sources_version}"
+ext.kotlin_native_build = "1.3-release-10826" // "${kotlin_native_version}-release-4565"
 
+ext.useBuildServer = false
 final String buildServer = 'https://buildserver.labs.intellij.net'
-repositories {
-  teamcityServer { url = buildServer }
+
+if (useBuildServer) {
+  apply plugin: 'com.github.jk1.tcdeps'
+
+  repositories {
+    teamcityServer { url = buildServer }
+  }
+} else {
+  ext.kotlin_native_sources_revision = ext.kotlin_native_version
+  repositories {
+    ivy {
+      url "https://download.jetbrains.com/kotlin/native/builds/releases/"
+      layout "pattern", {
+        // e.g. https://download.jetbrains.com/kotlin/native/builds/releases/1.2.1-eap-9664/macos/kotlin-native-macos-1.2.1-eap-9664.tar.gz
+        artifact "[revision]/[classifier]/[module]-[classifier]-[revision].[ext]"
+      }
+    }
+
+  }
 }
 
 configurations {
@@ -18,10 +35,16 @@ configurations {
   kotlin_native_windows
 }
 
+def kotlinNativeDep(String target, String ext) {
+  return useBuildServer
+          ? tc(buildTypeId: kotlin_native_build_configuration, version: kotlin_native_build, artifactPath: "kotlin-native-$target-${kotlin_native_version}.$ext")
+          : [group: "org.jetbrains.kotlin", name: "kotlin-native", version: kotlin_native_version, classifier: target, ext: ext]
+}
+
 dependencies {
-  kotlin_native_linux   tc(buildTypeId: kotlin_native_build_configuration, version: kotlin_native_build, artifactPath: "kotlin-native-linux-${kotlin_native_version}.tar.gz")
-  kotlin_native_mac     tc(buildTypeId: kotlin_native_build_configuration, version: kotlin_native_build, artifactPath: "kotlin-native-macos-${kotlin_native_version}.tar.gz")
-  kotlin_native_windows tc(buildTypeId: kotlin_native_build_configuration, version: kotlin_native_build, artifactPath: "kotlin-native-windows-${kotlin_native_version}.zip")
+  kotlin_native_linux   kotlinNativeDep("linux", "tar.gz")
+  kotlin_native_mac     kotlinNativeDep("macos", "tar.gz")
+  kotlin_native_windows kotlinNativeDep("windows", "zip")
 }
 
 final File kotlin_native_dir = new File(buildDir, "kotlin_native")
@@ -51,7 +74,9 @@ final File kotlinTargetDir = new File(buildDir, "kotlin-native-sources")
 
 task getTeamCityBuildInfo(type: Download) {
   final String url =  teamCityBuildsURL
-  println url
+  doFirst {
+    println url
+  }
   src url
   dest teamCityBuildInfo
   overwrite false
@@ -81,7 +106,12 @@ task inferTeamCityRevisionInfo() {
 }
 
 task downloadKotlinNativeSources(type: Download) {
-  dependsOn inferTeamCityRevisionInfo
+  if (useBuildServer) {
+    dependsOn inferTeamCityRevisionInfo
+  } else {
+    assert kotlin_native_sources_revision != null
+    src("https://github.com/JetBrains/kotlin-native/archive/${kotlin_native_sources_revision}.zip")
+  }
   dest kotlinSourcesZip
   overwrite false
 }
