@@ -10,7 +10,7 @@ configurations {
 }
 
 final String dokka_build = "611"
-final String dokka_version = "0.9.18-SNAPSHOT"
+final String dokka_version = "0.9.19-SNAPSHOT"
 
 repositories {
   mavenLocal()
