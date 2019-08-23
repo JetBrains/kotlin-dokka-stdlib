@@ -1,11 +1,6 @@
 apply plugin: 'de.undercouch.download'
 apply plugin: 'base'
 
-repositories {
-  mavenCentral()
-  jcenter()
-}
-
 configurations {
   kotlin_src
   kotlin_jvm
