@@ -3,8 +3,8 @@ apply plugin: 'base'
 
 //TODO: there is no direct sync between tag and K/N version :(
 ext.kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist'
-ext.kotlin_native_version = "1.3.50" // "${kotlin_native_sources_version}"
-ext.kotlin_native_build = "1.3.50-release-11850" // "${kotlin_native_version}-release-4565"
+ext.kotlin_native_version = "1.3.60" // "${kotlin_native_sources_version}"
+ext.kotlin_native_build = "1.3.60-release-13393" // "${kotlin_native_version}-release-4565"
 
 ext.useBuildServer = false
 final String buildServer = 'https://buildserver.labs.intellij.net'
