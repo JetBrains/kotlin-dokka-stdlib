@@ -9,12 +9,16 @@ configurations {
   kotlin_sources
 }
 
-final String dokka_build = "611"
-final String dokka_version = "0.10.0"
-
 repositories {
+  
   mavenLocal()
-  maven { url = "https://teamcity.jetbrains.com/guestAuth/repository/download/Kotlin_Dokka_DokkaAntMavenGradle/$dokka_build/maven"  }
+  if (project.hasProperty("dokka.provided.path")) {
+    def dokkaMavenUrl = file(project.getProperty("dokka.provided.path")).toURI().toURL().toString()
+    maven { url = dokkaMavenUrl }
+    println("Using provided dokka at: $dokkaMavenUrl, with version: $dokka_version")
+  } else {
+    maven { url = "https://teamcity.jetbrains.com/guestAuth/repository/download/Kotlin_Dokka_DokkaAntMavenGradle/$dokka_build/maven"  }
+  }
   jcenter()
 }
 
