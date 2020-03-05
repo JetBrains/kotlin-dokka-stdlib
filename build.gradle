@@ -10,10 +10,11 @@ configurations {
 }
 
 final String dokka_build = "611"
-final String dokka_version = "0.10.0"
+final String dokka_version = "0.10.2-dev-34"
 
 repositories {
   mavenLocal()
+  maven { url = "https://dl.bintray.com/kotlin/kotlin-dev" }
   maven { url = "https://teamcity.jetbrains.com/guestAuth/repository/download/Kotlin_Dokka_DokkaAntMavenGradle/$dokka_build/maven"  }
   jcenter()
 }
