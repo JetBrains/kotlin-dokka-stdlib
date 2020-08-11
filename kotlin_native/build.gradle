@@ -3,8 +3,8 @@ apply plugin: 'base'
 
 //TODO: there is no direct sync between tag and K/N version :(
 ext.kotlin_native_build_configuration = 'Kotlin_KotlinNative_Master_KotlinNativeDist'
-ext.kotlin_native_version = "1.4-M3" // "${kotlin_native_sources_version}"
-ext.kotlin_native_build = "1.4-M3-release-67" // "${kotlin_native_version}-release-4565"
+ext.kotlin_native_version = "1.4-rc1-40" // "${kotlin_native_sources_version}"
+ext.kotlin_native_build = "1.4-rc1-40" // "${kotlin_native_version}-release-4565"
 
 ext.useBuildServer = false
 final String buildServer = 'https://buildserver.labs.intellij.net'
@@ -16,7 +16,7 @@ if (useBuildServer) {
     teamcityServer { url = buildServer }
   }
 } else {
-  ext.kotlin_native_sources_revision = "v${ext.kotlin_native_version}"
+  ext.kotlin_native_sources_revision = "v1.4-rc" // "v${ext.kotlin_native_version}"
   repositories {
     ivy {
       url "https://download.jetbrains.com/kotlin/native/builds/releases/"
