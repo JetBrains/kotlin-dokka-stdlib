@@ -7,8 +7,8 @@ configurations {
 }
 
 //final String kotlin_big_build_configuration = 'Kotlin_1360_Compiler'
-final String kotlin_big_version = findProperty("kotlinLocalVersionOverride") ?: '1.4.0-rc'
-final String kotlin_big_build = "1.4.0-rc-release-221"
+final String kotlin_big_version = findProperty("kotlinLocalVersionOverride") ?: '1.4.0'
+final String kotlin_big_build = "1.4.0-release-329"
 
 repositories {
   if (findProperty("kotlinLocalVersionOverride") != null) mavenLocal()
