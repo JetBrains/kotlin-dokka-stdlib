@@ -7,15 +7,12 @@ configurations {
 }
 
 //final String kotlin_big_build_configuration = 'Kotlin_1360_Compiler'
-final String kotlin_big_version = findProperty("kotlinLocalVersionOverride") ?: '1.4.30'
-final String kotlin_big_build = "1.4.30-release-302"
+final String kotlin_big_version = findProperty("kotlinLocalVersionOverride") ?: '1.5.0'
+final String kotlin_big_build = "1.5.0-release-749"
 
 repositories {
   if (findProperty("kotlinLocalVersionOverride") != null) mavenLocal()
 //  maven { url = "https://teamcity.jetbrains.com/guestAuth/repository/download/$kotlin_big_build_configuration/$kotlin_big_build/maven" }
-  maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
-  maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-  jcenter()
   mavenCentral()
 }
 
