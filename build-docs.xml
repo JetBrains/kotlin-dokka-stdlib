@@ -178,7 +178,6 @@
                   include="${stdlib-include-md}"
                   noStdlibLink="true"
                   classpathref="stdlib-jvm.classpath"
-                  classpath="${kotlin_libs}/stdlib"
                   languageVersion="${language.version}"
                   includeRootPackage="false">
 
