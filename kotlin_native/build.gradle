@@ -121,7 +121,7 @@ task downloadKotlinNativeSources(type: Download) {
 }
 
 task extractKotlinNativeSources(type: Sync, dependsOn: downloadKotlinNativeSources) {
-  enabled = findProperty("kotlinNativeLocalRoot") == null
+  enabled = findProperty("kotlinLocalRoot") == null
   from zipTree(kotlinSourcesZip)
   into kotlinTargetDir
   includeEmptyDirs = false
@@ -134,7 +134,7 @@ task extractKotlinNativeSources(type: Sync, dependsOn: downloadKotlinNativeSourc
 
 task extractKotlinNative(dependsOn: [extractKotlinNativeSources, extractKotlinNativeBinariesLinux, extractKotlinNativeBinariesMac, extractKotlinNativeBinariesWindows]) {}
 
-project.extensions.kotlin_native_root = findProperty("kotlinNativeLocalRoot") ?: kotlinTargetDir
+project.extensions.kotlin_native_root = findProperty("kotlinLocalRoot") == null ? kotlinTargetDir : findProperty("kotlinLocalRoot") + "/kotlin-native"
 project.extensions.kotlin_native_bin_linux = new File(kotlin_native_dir, "linux/kotlin-native-linux-${kotlin_native_version}")
 project.extensions.kotlin_native_bin_mac = new File(kotlin_native_dir, "mac/kotlin-native-mac-${kotlin_native_version}")
 project.extensions.kotlin_native_bin_windows = new File(kotlin_native_dir, "windows/kotlin-native-windows-${kotlin_native_version}")
