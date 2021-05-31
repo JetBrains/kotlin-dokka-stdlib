@@ -20,9 +20,13 @@ if (useBuildServer) {
   repositories {
     ivy {
       url "https://download.jetbrains.com/kotlin/native/builds/releases/"
-      layout "pattern", {
+      patternLayout {
         // e.g. https://download.jetbrains.com/kotlin/native/builds/releases/1.2.1-eap-9664/macos/kotlin-native-macos-1.2.1-eap-9664.tar.gz
         artifact "[revision]/[classifier]/[module]-[classifier]-[revision].[ext]"
+
+        metadataSources {
+          artifact()
+        }
       }
     }
 

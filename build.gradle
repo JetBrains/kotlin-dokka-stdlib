@@ -1,6 +1,6 @@
 plugins {
   id "de.undercouch.download" version "3.4.3"
-  id 'com.github.jk1.tcdeps' version '0.17'
+  id 'com.github.jk1.tcdeps' version '1.2'
 }
 
 
@@ -56,7 +56,7 @@ task callDokka(type: Exec, dependsOn: [extractAll, setupCallDokka, cleanupSource
   environment("JAVA_HOME", System.getProperty("java.home"))
   doFirst {
     def logFile = file("$buildDir/dokka.log")
-    standardOutput = new org.apache.tools.ant.util.TeeOutputStream(standardOutput, new FileOutputStream(logFile))
+    standardOutput = new org.apache.tools.ant.util.TeeOutputStream(System.out, new FileOutputStream(logFile))
   }
 }
 

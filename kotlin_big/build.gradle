@@ -45,6 +45,11 @@ modules.forEach { module ->
   final Configuration conf_src = configurations.create(src)
   final Configuration  lib_src = configurations.create(lib)
 
+  if (module == "kotlin-test-js") {
+    conf_src.attributes {attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, "kotlin-runtime")) }
+    lib_src.attributes {attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, "kotlin-runtime")) }
+  }
+
   dependencies {
     "$src"(group: 'org.jetbrains.kotlin', name: module, version: kotlin_big_version, classifier: 'sources') { transitive = false }
     "$lib"(group: 'org.jetbrains.kotlin', name: module, version: kotlin_big_version)
