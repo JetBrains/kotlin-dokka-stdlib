@@ -1,4 +1,5 @@
 apply plugin: 'de.undercouch.download'
+apply plugin: 'base'
 
 final String ext
 if (System.getProperty('os.name', '').toLowerCase().contains('windows')) {
